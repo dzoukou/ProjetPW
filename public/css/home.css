@@ -1,0 +1,20 @@
+i{
+  margin-right: 10px
+}
+nav ul li a{
+  color: #bf360c;
+  font-size: 16px;
+  font-weight: bold;
+}
+.logo{
+  margin-left: 20px;
+}
+nav{
+  background-color: white;
+}
+.parallax-container{
+  width: 100%;
+}
+.card{
+  background-color: rgba(220,220,220,0.5);
+}

@@ -1,0 +1,34 @@
+<script id="demand" type="text/template">
+    <td>
+        <%= publicationDate %>
+    </td>
+    <td>
+        <%= chickenKind %>
+    </td>
+    <td>
+        <%= size %>
+    </td>
+    <td>
+        <%= quantity %>
+    </td>
+    <td>
+        <div class="center">
+            <a href="#modal" class="modal-trigger btn-floating btn-large waves-effect waves-light red"><i class="fa fa-pencil edit fa-3x"></i></a>
+            <a href="#modal1" class="modal-trigger btn-floating btn-large waves-effect waves-light yellow"><i class="fa fa-close delete fa-3x"></i></a>
+        </div>
+    </td>
+</script>
+<script id="offer" type="text/template">
+    <div class="card">
+        <div class="card-image">
+            <img src="<%= imageLink %>">
+            <span class="card-title">Offre N° <%= id %></span>
+        </div>
+        <div class="card-content">
+            <p><%= description %></p>
+        </div>
+        <div class="card-action">
+            <a href="/offer/<%= id %>">Aller vers l'offre</a>
+        </div>
+    </div>
+</script>

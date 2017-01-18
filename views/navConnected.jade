@@ -1,0 +1,88 @@
+|<div class="navbar-fixed">
+|<nav class="nav-extended role="navigation">
+|<div class="nav-wrapper">
+|<a href="#" data-activates="mobile-demo" id="android" class="button-collapse deep-orange-text">
+|<i class="fa fa-bars"></i>Menu
+|</a>
+|<a href="#!" class="brand-logo">
+|<span class="logo deep-orange-text text-darken-4">Vente des Poulets en ligne</span>
+|</a>
+|<ul class="right hide-on-med-and-down">
+|<li>
+|<a href="/"><i class="fa fa-home"></i>Acceuil</a>
+|</li>
+|<li><a href="/panel">Panel</a></li>
+li 
+  a(href="/offers") Offres 
+    span.new.badge #{newOffers} 
+li 
+  a(href="#")
+    img#userBadge.circle(src="/avatar", alt="User")
+|<li><a href="/logout"><i class="fa fa-sign-in"></i>Deconnexion</a></li>
+|</ul>
+|<ul class="side-nav" style="left: 0px;" id="mobile-demo">
+|<li>
+|<a href="/"><i class="fa fa-home"></i>Acceuil</a>
+|</li>
+|<li><a href="/panel">Panel</a></li>
+li 
+  a(href="/offers") Offres 
+    span.new.badge #{newOffers} 
+li 
+  a(href="#")
+    img#userBadge.circle(src="/avatar", alt="User")
+|<li><a href="/logout"><i class="fa fa-sign-in"></i>Deconnexion</a></li>
+|</ul>
+if(panel)
+  |<ul class="tabs row tabs-transparent">
+  |<li class="tab deep-orange  col m4 s4" id="taboffers"><a href="#test1">Offres</a></li>
+  |<li class="tab deep-orange col m4 s4" id="tabdemands" ><a class="active" href="#test2">Demandes</a></li>
+  |<li class="tab deep-orange col m4 s4" id="tabcommands" ><a href="#test3">Commande</a></li>
+  |</ul>
+|</div>
+|</nav>
+|</div>
+
+
+
+//- |<div class="navbar-fixed">
+//- |<nav class="light-blue lighten-1" role="navigation">
+//- |<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+//- |<ul class="right hide-on-med-and-down">
+//- |<li><a href="#">Navbar Link</a></li>
+//- |</ul>
+//- 
+//- |<ul id="nav-mobile" class="side-nav" style="left: 0px;">
+//- |<li><a href="#">Navbar Link</a></li>
+//- |</ul>
+//- |<a href="#" data-activates="nav-mobile" id="android" class="button-collapse"><i class="material-icons">menu</i></a>
+//- |</div>
+//- |</nav>
+//- |</div>
+
+
+//- 
+//- |<nav>
+//- |<div class="nav-wrapper">
+//- |<a href="#!" data-activates="mobile-demo" id="android" class="button-collapse deep-orange-text">
+//- |<i class="fa fa-bars"></i>Menu
+//- |</a>
+//- |<a href="#!" class="brand-logo">
+//- |<span class="logo deep-orange-text text-darken-4">Vente des Poulets en ligne</span>
+//- |</a>
+//- |<ul class="right hide-on-med-and-down">
+//- |<li class="active">
+//- |<a href="#"><i class="fa fa-home"></i>Acceuil</a>
+//- |</li>
+//- |<li><a href="/login"><i class="fa fa-sign-in"></i>Connexion</a></li>
+//- |<li><a href="/register"><i class="fa fa-user"></i>Inscription</a></li>
+//- |</ul>
+//- |<ul class="side-nav" id="mobile-demo">
+//- |<li>
+//- |<a href="#"><i class="fa fa-home"></i>Acceuil</a>
+//- |</li>
+//- |<li><a href="/login"><i class="fa fa-sign-in"></i>Connexion</a></li>
+//- |<li><a href="/register"><i class="fa fa-user"></i>Inscription</a></li>
+//- |</ul>
+//- |</div>
+//- |</nav>

@@ -1,0 +1,71 @@
+<div class="fixed-action-button">
+    <a id="add" class="modal-trigger btn-floating btn-large waves-effect waves-light red btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Passer une Commande" href="#modal"><i class="fa fa-plus"></i></a>
+</div>
+<h1 class="flow-text center">Liste de Vos demandes</h1>
+<table id="data" class="striped centered">
+    <thead>
+        <tr>
+            <th data-field="date" class="center">Date de Publication</th>
+            <th data-field="kind" class="center">Type de poulet</th>
+            <th data-field="size" class="center">Grosseur</th>
+            <th data-field="quantity" class="center">Quantité</th>
+            <th data-field="actions" class="center">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody id="body">
+    </tbody>
+
+</table>
+<div id="modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h2 class="flow-text center">Modifier Une Demande</h2>
+        <div class="container">
+            <div class="row center">
+                <div class="input-field col s12">
+                    <input id="quantity" type="number" min="1">
+                    <label for="quantity">Quantité</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col m6 s12">
+                    <select id="kind">
+                      <option value="" disabled selected>Votre Choix</option>
+                      <option value="1">Poulet de chair</option>
+                      <option value="2">Poulet du Village</option>
+                      <option value="3">Pondeuse</option>
+                    </select>
+                    <label>Type de Poulet</label>
+                </div>
+                <div class="input-field col m6 s12">
+                    <select id="size">
+                      <option value="" disabled selected>Votre Choix</option>
+                      <option value="1">Petit</option>
+                      <option value="2">Moyen</option>
+                      <option value="3">Gros</option>
+                      <option value="4">Tres Gros</option>
+                    </select>
+                    <label>Taille du Poulet</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" id="apply" class="modal-action modal-close waves-effect waves-green btn-flat ">Valider</a>
+        <a href="#!" id="cancel" class="modal-action modal-close waves-effect waves-green btn-flat ">Annuler</a>
+    </div>
+</div>
+<div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content valign-wrapper">
+        <div class="container valign">
+            <div class="divider"></div>
+            <p class="flow-text center">Etes-Vous Sûr de Vouloir supprimer cette demande ?</p>
+            <div class="divider"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" id="apply1" class="modal-action modal-close waves-effect waves-green btn-flat ">Oui</a>
+        <a href="#!" id="cancel1" class="modal-action modal-close waves-effect waves-green btn-flat ">Non</a>
+    </div>
+</div>

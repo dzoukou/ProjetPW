@@ -1,0 +1,122 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "name": "dzoukou",
+      "surname": "raoul",
+      "email": "dzoukouraoul@gmail.com",
+      "password": "19971997a",
+      "phone": "651369240",
+      "city": "yaounde",
+      "district": "messassi",
+      "sector": "nyom",
+      "register_date": "30-12-2017"
+    },
+    {
+      "name": "TrivialMan",
+      "id": 1,
+      "email": "a",
+      "password": ""
+    },
+    {
+      "name": "",
+      "surname": "",
+      "email": "",
+      "password": "",
+      "phone": "",
+      "address": "",
+      "city": "",
+      "district": "",
+      "sector": "",
+      "register_date": "2017-01-07 09:45:46",
+      "id": 2
+    }
+  ],
+  "accounts": [
+    {
+      "id": 0,
+      "money": 200000,
+      "userId": 0,
+      "creation_date": "30-12-2017"
+    }
+  ],
+  "offers": [
+    {
+      "id": 0,
+      "chickenKind": "poulet de chair",
+      "size": "gros",
+      "imageLink": "/images/poulet_de_chair.jpg",
+      "quantity": 30,
+      "unitPrice": 2500,
+      "publicationDate": "30-12-2017",
+      "description": "I am an offer",
+      "userId": 1
+    }
+  ],
+  "commands": [
+    {
+      "id": 0,
+      "quantity": 10,
+      "userId": 1,
+      "offerId": 1,
+      "validate": false
+    },
+    {
+      "userId": "1",
+      "quantity": "15",
+      "offerId": "0",
+      "id": 1
+    }
+  ],
+  "reductions": [
+    {
+      "id": 0,
+      "quantity": 20,
+      "rate": 15,
+      "offerId": 0
+    }
+  ],
+  "prestations": [
+    {
+      "id": 0,
+      "name": "prest1",
+      "price": 10000,
+      "publicationDate": "30-12-2017",
+      "time": "1 day",
+      "offerId": 0
+    }
+  ],
+  "requests": [
+    {
+      "id": 0,
+      "chickenKind": "poulet de chair",
+      "size": "gros",
+      "quantity": 10,
+      "userId": 0,
+      "publicationDate": "05-01-2017"
+    },
+    {
+      "chickenKind": "Poulet de chair",
+      "size": "Moyen",
+      "quantity": "19",
+      "userId": "1",
+      "publicationDate": "2017-01-06 16:28:50",
+      "id": 1
+    },
+    {
+      "chickenKind": "Poulet de chair",
+      "size": "Moyen",
+      "quantity": "15",
+      "userId": "1",
+      "publicationDate": "2017-01-07 17:08:27",
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 0,
+      "userId": 1,
+      "comment": "Ca ne me plait pas"
+    }
+  ]
+}

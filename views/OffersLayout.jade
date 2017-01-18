@@ -1,0 +1,8 @@
+extend layout
+block append extra
+  link(rel="stylesheet", href="/css/offers.css")
+block append main
+  include offers.html
+  p boonjour #{name}
+append script
+  | <script src="/js/offers.js"></script>

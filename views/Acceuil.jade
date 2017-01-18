@@ -1,0 +1,11 @@
+extend layout
+append extra
+  link(rel="stylesheet", href="/css/home.css")
+  if(connected)
+    link(rel="stylesheet", href="/css/navconnect.css")
+append main
+  include nav
+  include homeBody.html
+  include footer.html
+append script
+  |<script src="/js/script.js"></script>

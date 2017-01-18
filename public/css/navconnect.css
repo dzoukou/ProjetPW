@@ -1,0 +1,24 @@
+nav i{
+  margin-right: 10px
+}
+nav ul li a{
+  color: #bf360c;
+  font-size: 16px;
+  font-weight: bold;
+}
+.logo{
+  margin-left: 20px;
+}
+nav{
+  background-color: white;
+}
+#userBadge{
+  width: 50px;
+  max-height: 50px;
+}
+.img{
+  padding: 5px;
+}
+#main{
+  margin-top: 100px;
+}

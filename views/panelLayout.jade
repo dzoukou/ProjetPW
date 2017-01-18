@@ -1,0 +1,12 @@
+extend layout
+block append extra 
+    link(rel="stylesheet", href="/css/navconnect.css")
+block append main
+    include navConnected
+    div#main.container
+block append script
+    include backboneViews.html
+    |<script src="others/velocity.min.js"></script>
+    |<script src="others/underscore.js"></script>
+    |<script src="others/backbone.js"></script>
+    |<script src="js/demand.js"></script>

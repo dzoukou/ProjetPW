@@ -1,0 +1,52 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <title>TITLE</title>
+     <meta name="description" content="DESCRIPTION">
+    <link rel="stylesheet" href="/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/connexion.css">
+ </head>
+
+ <body>
+  <div class="main">
+    <p class="center-align white-text text-darken-4 connection">Connexion</p>
+    <div class="container">
+      <div class="divider"></div>
+      <form action="/login" class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="fa fa-user prefix"></i>
+            <input class="white-text" id="email" type="text" data-error="Svp entrez Votre email" class="validate">
+            <label for="email">Votre Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="fa fa-key prefix"></i>
+            <input id="passwd" type="password" class="validate">
+            <label for="passwd">Votre mot de passe</label>
+          </div>
+          <a class="right" href="/pwdloss">Mot de passe oublié ?</a>
+        </div>
+        <div class="row">
+          <div class="col input-field s12">
+            <input type="checkbox" class="filled-in" id="filled-in-box" />
+            <label for="filled-in-box">Se souvenir de Moi</label>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+          <div class="col input-field s12 center">
+            <button class="waves-effect waves-light btn" type="submit">Se connecter<i class="fa fa-send right"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+ </body>
+ <script src="/jquery/jquery-3.1.1.min.js"></script>
+ <script src="/materialize/js/materialize.min.js"></script>
+ </html>

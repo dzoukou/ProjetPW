@@ -1,0 +1,20 @@
+{
+  "name": "projet",
+  "version": "1.0.0",
+  "description": "Coté serveur du projet final de programmation web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "trivialman",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "jade": "^1.11.0",
+    "json-server": "^0.9.4",
+    "request": "^2.79.0"
+  }
+}

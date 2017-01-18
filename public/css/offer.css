@@ -1,0 +1,25 @@
+.mysection{
+  border-style: solid;
+  border-color: #f3e5f5;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin-top: 20px;
+  border-width: 1px;
+}
+.mysection>div:first-child>*{
+  padding: 8px;
+  margin: 0;
+
+}
+.main{
+  margin-top: 70px;
+}
+.divider{
+  margin: 10px;
+}
+#command{
+  margin-top: 15px;
+}
+#back{
+  margin-bottom: 20px;
+}
