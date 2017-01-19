@@ -22,7 +22,10 @@ app.use(sessions({
 
 
 
-
+// creer une offre
+app.get("/createoffer",function(req,res){
+    res.render("CreateOffer");
+})
 // photo de profil
 app.get("/avatar", function(req, res) {
     if (req.session.uniqueID) {

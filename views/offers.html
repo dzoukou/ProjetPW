@@ -1,17 +1,41 @@
 <div class="container">
-    <a href="#search" class="waves-effect waves-light btn red darken-1">
-        <i class="fa fa-search"></i> Rechercher
-    </a>
+    <div>
+        <div>
+            <div class="fixed-action-btn toolbar">
+                <a class="btn-floating btn-large blue lighten-2">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <ul>
+                    <li class="waves-effect waves-light lighten-3">
+                        <nav>
+                            <div class="nav-wrapper">
+                                <form id="searchform">
+                                    <div class="input-field">
+                                        <input id="inputsearch" type="search" required>
+                                        <label for="inputsearch"><i class="fa fa-search fa-2x"></i></label>
+                                        <i class="fa fa-close"></i>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                    </li>
+                    <li class="waves-effect waves-light lighten-5"><a href="#search" id="filter"><i class="fa fa-filter"></i>  Filtrer</a></li>
+                    <li class="waves-effect waves-light lighten-5"><a href="#!" id="byquantity">Trier par Quantité</a></li>
+                    <li class="waves-effect waves-light lighten-5"><a href="#!" id="byprice">Trier par Prix unitaire</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div id="offers">
 
     </div>
     <div id="search">
         <span class="close"><i class="fa fa-close"></i></span>
         <div class="content">
-            <form role="search" id="searchform" action="/search" method="get">
+            <form role="search" id="finalize" action="/search" method="get">
                 <h4 class="center">Prix unitaire</h4>
-            <input id="sliderp" type="text" name="range"></input>
-            <h4 class="center">quantité</h4>
+                <input id="sliderp" type="text" name="range"></input>
+                <h4 class="center">quantité</h4>
                 <input id="sliderq"></input>
                 <div class="row">
                     <div class="input-field col m6 s12">
@@ -47,13 +71,17 @@
                                 <label for="gros">Gros</label>
                             </li>
                             <li>
-                            <input type="checkbox" id="tgros" class="filled-in" checked="checked" />
-                            <label for="tgros"> Très Gros</label>
-                        </li>
-                    </ul>
+                                <input type="checkbox" id="tgros" class="filled-in" checked="checked" />
+                                <label for="tgros"> Très Gros</label>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                
+                <div class="center">
+                    <button class="waves-effect waves-light btn" type="submit">Filtrer
+                        <i class="fa fa-filter left"></i>
+                    </button>
+                </div>
             </form>
         </div>
     </div>

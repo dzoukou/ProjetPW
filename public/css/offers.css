@@ -108,3 +108,6 @@
   color: #FC2121;
   cursor: pointer;
 }
+.toolbar{
+   z-index: 100;
+}
