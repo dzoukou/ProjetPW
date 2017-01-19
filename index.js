@@ -382,7 +382,8 @@ app.get("/offer/:id", function(req, res) {
 });
 app.get("/offers", function(req, res) {
     res.render("OffersLayout", {
-        "name": "teguia"
+        connected: (req.session.uniqueID != null),
+        panel:false
     });
 })
 app.get("/logout", function(req, res) {

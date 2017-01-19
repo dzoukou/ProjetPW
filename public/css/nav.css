@@ -1,0 +1,20 @@
+nav i{
+  margin-right: 10px
+}
+nav ul li a{
+  color: #bf360c;
+  font-size: 16px;
+  font-weight: bold;
+}
+nav .logo{
+  margin-left: 20px;
+  font-family: "comic sans ms",Arial;
+}
+nav{
+  background-color: white;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}

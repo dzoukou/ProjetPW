@@ -21,7 +21,7 @@ var i = 0;
 
 app.OfferView = Backbone.View.extend({
     tagName: "div",
-    className: "col m12 s12 l4",
+    className: "col m4 s12 l4",
     template: _.template($("#offer").html()),
 
     render: function() {
@@ -48,11 +48,11 @@ app.allOffersView = Backbone.View.extend({
     render: function() {
         this.$el.html("");
         console.log(this.collection);
-        if(this.collection.length==0){
+        if (this.collection.length == 0) {
             this.$el.html("<p class=\"flow-text center\">Aucun résultat trouvé</p>");
         }
         this.collection.each(this.addOffer, this);
-        i=0;
+        i = 0;
         return this;
     },
     offerIndex: 0,
@@ -80,6 +80,15 @@ app.allOffersView = Backbone.View.extend({
 });
 
 $(function() {
+    // Initialisation du sideNav
+    $(".button-collapse").sideNav();
+    $(".navbar-fixed").css({
+        "z-index": 9999
+    });
+    $("#reload").css({"margin-top":"15px"});
+    $("nav .active").removeClass("active").next().addClass("active");
+    $("#searchhead").hide();
+    $("#inputsearch").addClass("lime darken-2");
     OfferGroupView = {};
     collection = new app.OfferCollection();
     collection.fetch().then(function() {
@@ -95,6 +104,13 @@ $(function() {
         $("#search").removeClass('open');
     });
     $('select').material_select();
+    $('.tooltipped').tooltip({delay: 50});
+    $("#reload").click(function(e){
+        OfferGroupView = new app.allOffersView({
+            "collection": collection
+        });
+        $("#searchhead").hide();
+    })
     var sliderp = document.getElementById('sliderp');
     var sliderq = document.getElementById('sliderq');
     $(sliderp).ionRangeSlider({
@@ -124,6 +140,7 @@ $(function() {
     })
     $("#searchform").on("submit", function(e) {
         e.preventDefault();
+        $("#searchhead").show();
         console.log("submit");
         var value = $(this).find("input").val();
         OfferGroupView = new app.allOffersView({
@@ -138,54 +155,57 @@ $(function() {
         });
     });
 
-    $("#finalize").on("submit",function(e){
+    $("#finalize").on("submit", function(e) {
         e.preventDefault();
-        var rangeprice=$("#sliderp").val().split(";")
-        var rangequantity=$("#sliderq").val().split(";")
-        var kind=[];
-        if($("#pouletc").prop("checked")){
+        $("#searchhead").show();
+        var rangeprice = $("#sliderp").val().split(";")
+        var rangequantity = $("#sliderq").val().split(";")
+        var kind = [];
+        if ($("#pouletc").prop("checked")) {
             kind.push("poulet de chair");
         }
-        if($("#pouletv").prop("checked")){
+        if ($("#pouletv").prop("checked")) {
             kind.push("poulet du village");
         }
-        if($("#pondeuse").prop("checked")){
+        if ($("#pondeuse").prop("checked")) {
             kind.push("pondeuse");
         }
-        var size=[];
-        if($("#petit").prop("checked")){
+        var size = [];
+        if ($("#petit").prop("checked")) {
             size.push("petit");
         }
-        if($("#moyen").prop("checked")){
+        if ($("#moyen").prop("checked")) {
             size.push("moyen");
         }
-        if($("#gros").prop("checked")){
+        if ($("#gros").prop("checked")) {
             size.push("gros");
         }
-        if($("#tgros").prop("checked")){
+        if ($("#tgros").prop("checked")) {
             size.push("très gros");
         }
-        isequal=function(e){
+        isequal = function(e) {
 
         }
         OfferGroupView = new app.allOffersView({
             "collection": new app.OfferCollection(
                 collection.filter(function(offer) {
                     return _.every(offer.attributes, function(val, attr) {
-                        switch(attr){
-                            case "chickenKind" :
-                                if(_.contains(kind,val.toLowerCase())) return true;
+                        switch (attr) {
+                            case "chickenKind":
+                                if (_.contains(kind, val.toLowerCase())) return true;
                                 break;
                             case "size":
-                                if(_.contains(size,val.toLowerCase())) return true;
+                                if (_.contains(size, val.toLowerCase())) return true;
                                 break;
                             case "quantity":
-                                 if((val<=rangequantity[1])&&(val>=rangequantity[0])) return true;
-                                 break;
+                                if ((val <= rangequantity[1]) && (val >= rangequantity[0])) return true;
+                                break;
                             case "unitPrice":
-                                 if((val<=rangeprice[1])&&(val>=rangeprice[0])) return true;
-                                 break;
-                            default: return true; break;
+                                if ((val <= rangeprice[1]) && (val >= rangeprice[0])) return true;
+                                break;
+                            default:
+                                return true;
+                                break;
                         }
                         return false;
                     })
@@ -195,23 +215,4 @@ $(function() {
         $("#search").removeClass("open");
 
     })
-    // noUiSlider.create(sliderp, {
-    //     start: [500, 10000],
-    //     connect: true,
-    //     step: 1,
-    //     range: {
-    //         'min': 500,
-    //         'max': 10000
-    //     }
-    // });
-    // noUiSlider.create(sliderq, {
-    //     start: [10, 50],
-    //     connect: true,
-    //     step: 1,
-    //     range: {
-    //         'min': 1,
-    //         'max': 300
-    //     }
-    // });
-
 })

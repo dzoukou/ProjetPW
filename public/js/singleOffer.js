@@ -8,6 +8,7 @@ $(function(){
         construct(data);
       }
   });
+  // Initialisation du sideNav
   $(".button-collapse").sideNav();
   $(".navbar-fixed").css({"z-index":9999});
 });

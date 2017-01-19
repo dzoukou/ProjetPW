@@ -31,6 +31,7 @@
     margin: 10px;
     position: absolute;
     top: 0;
+    right: 0;
     letter-spacing: 0
 }
 .col{
@@ -110,4 +111,7 @@
 }
 .toolbar{
    z-index: 100;
+}
+.title{
+   font-family: "comic sans ms",Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
