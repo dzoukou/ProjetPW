@@ -16,7 +16,8 @@
       "name": "TrivialMan",
       "id": 1,
       "email": "a",
-      "password": ""
+      "password": "",
+      "admin": true
     },
     {
       "name": "",
@@ -43,6 +44,72 @@
   "offers": [
     {
       "id": 0,
+      "chickenKind": "poulet de chair",
+      "size": "gros",
+      "imageLink": "/images/poulet_de_chair.jpg",
+      "quantity": 30,
+      "unitPrice": 2500,
+      "publicationDate": "30-12-2017",
+      "description": "I am an offer",
+      "userId": 1
+    },
+    {
+      "id": 1,
+      "chickenKind": "poulet de chair",
+      "size": "gros",
+      "imageLink": "/images/pondeuse.jpg",
+      "quantity": 30,
+      "unitPrice": 2500,
+      "publicationDate": "30-12-2017",
+      "description": "I am an offer",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "chickenKind": "poulet de chair",
+      "size": "gros",
+      "imageLink": "/images/poulet_de_chair.jpg",
+      "quantity": 30,
+      "unitPrice": 2500,
+      "publicationDate": "30-12-2017",
+      "description": "I am an offer",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "chickenKind": "poulet de chair",
+      "size": "gros",
+      "imageLink": "/images/poulet_de_chair.jpg",
+      "quantity": 30,
+      "unitPrice": 2500,
+      "publicationDate": "30-12-2017",
+      "description": "I am an offer",
+      "userId": 1
+    },
+    {
+      "id": 4,
+      "chickenKind": "poulet de chair",
+      "size": "gros",
+      "imageLink": "/images/poulet_de_chair.jpg",
+      "quantity": 30,
+      "unitPrice": 2500,
+      "publicationDate": "30-12-2017",
+      "description": "I am an offer",
+      "userId": 1
+    },
+    {
+      "id": 5,
+      "chickenKind": "poulet de chair",
+      "size": "gros",
+      "imageLink": "/images/poulet_de_chair.jpg",
+      "quantity": 30,
+      "unitPrice": 2500,
+      "publicationDate": "30-12-2017",
+      "description": "I am an offer",
+      "userId": 1
+    },
+    {
+      "id": 6,
       "chickenKind": "poulet de chair",
       "size": "gros",
       "imageLink": "/images/poulet_de_chair.jpg",

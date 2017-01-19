@@ -1,50 +1,126 @@
-$(function(){
-  $('.tooltipped').tooltip({delay: 50});
-  var list=$("#list");
-  for(i=0;i<11;i++){
-    var obj=new Object();
-    obj.id=i;
-    obj.chickenKind=i%2?"Poulets de Chair":"Pondeuses";
-    obj.size=i%2?"Gros":"Petit";
-    obj.imageLink=i%2?"/images/poulet_de_chair.jpg":"/images/pondeuse.jpg";
-    obj.quantity=(i+(i*2))*i;
-    obj.unitPrice=i%2?2500:3000;
-    obj.publicationDate=new Date().toDateString();
-    obj.description="Je suis l'offre N°"+i;
-    list.append(construct(obj));
-  }
+var app = {};
+//Model
+app.Offer = Backbone.Model.extend({
+    defaults: {},
+    initialize: function() {
+        this.on("delete", this.remove);
+    }
 });
-var construct = function(obj){
-  var div1=$("<div></div>");
-  div1.addClass("collapsible-header");
-  var span1=$("<span></span>");
-  span1.text("Offre N°"+obj.id);
-  span1.css("color","green");
+//Collection
+app.OfferCollection = Backbone.Collection.extend({
+    model: app.Offer,
+    url: "/allOffers",
+    initialize: function() {}
+});
 
-  var span2=$("<span></span>");
-  span2.text("publié le "+obj.publicationDate+"  Type: "+obj.chickenKind+
-  "  Taille : "+obj.size+"  Quantité : "+obj.quantity+"  Prix Unitaire: "+obj.unitPrice);
-  div1.append("<i class=\"fa fa-send\"></i>",span1,span2);
-  var div2=$("<div></div>");
-  div2.addClass("collapsible-body");
-  var content=" <div class=\"col s12 m7\">"+
-    "<h2 class=\"header\">"+"offre N°"+obj.id+"</h2>"+
-    "<div class=\"card horizontal\">"+
-      "<div class=\"card-image\">"+
-        "<img src=\""+obj.imageLink+"\">"+
-      "</div>"+
-      "<div class=\"card-stacked\">"+
-        "<div class=\"card-content\">"+
-          "<p class=\"flow-text\">"+obj.description+"</p>"+
-        "</div>"+
-        "<div class=\"card-action\">"+
-          "<a href=\"/buy/"+obj.id+"\">Acheter</a>"+
-        "</div>"+
-      "</div>"+
-    "</div>"+
-  "</div>";
-  div2.append(content);
-  var item=$("<li></li>");
-  item.append(div1,div2);
-  return item;
-}
+
+
+//View
+
+var i = 0;
+
+app.OfferView = Backbone.View.extend({
+    tagName: "div",
+    className: "col m6 s12 l4",
+    template: _.template($("#offer").html()),
+
+    render: function() {
+        this.$el.html("");
+        var OfferTemplate = this.template(this.model.toJSON());
+        this.$el.html(OfferTemplate);
+        $(this.$el).velocity("fadeIn", {
+            duration: 500 * (i++),
+            easing: "easeInBack"
+        });
+        console.log("Render reussie")
+        return this;
+    },
+
+    initialize: function() {
+        this.render();
+    }
+});
+
+
+
+app.allOffersView = Backbone.View.extend({
+    el: "#offers",
+    render: function() {
+        this.$el.html("");
+        this.collection.each(this.addOffer, this);
+        return this;
+    },
+    offerIndex: 0,
+    presentrow: {},
+    addOffer: function(offer) {
+        var OfferView = new app.OfferView({
+            "model": offer
+        });
+        if (this.offerIndex % 3 == 0) {
+            this.presentrow = $("<div class=\"row\"><div>");
+            this.$el.append(this.presentrow);
+        }
+        console.log(OfferView.el);
+        this.presentrow.append(OfferView.el);
+        this.offerIndex++;
+    },
+    initialize: function() {
+        this.collection.on('add', this.addOffer, this);
+        this.render();
+    }
+});
+
+$(function() {
+    collection = new app.OfferCollection();
+    collection.fetch().then(function() {
+        OfferGroupView = new app.allOffersView({
+            "collection": collection
+        });
+    });
+    $('a[href="#search"]').on('click', function(event) {
+        $('#search').addClass('open');
+        $('#search > form > input[type="search"]').focus();
+    });
+    $('#search .close').on('click', function(event) {
+        $("#search").removeClass('open');
+    });
+    $('select').material_select();
+    var sliderp = document.getElementById('sliderp');
+    var sliderq = document.getElementById('sliderq');
+    $(sliderp).ionRangeSlider({
+        type: "double",
+        grid: true,
+        min: 400,
+        max: 10000,
+        from: 400,
+        to: 10000,
+        postfix: "F"
+    });
+    $(sliderq).ionRangeSlider({
+        type: "double",
+        grid: true,
+        min: 1,
+        max: 300,
+        from: 1,
+        to: 300
+    });
+    // noUiSlider.create(sliderp, {
+    //     start: [500, 10000],
+    //     connect: true,
+    //     step: 1,
+    //     range: {
+    //         'min': 500,
+    //         'max': 10000
+    //     }
+    // });
+    // noUiSlider.create(sliderq, {
+    //     start: [10, 50],
+    //     connect: true,
+    //     step: 1,
+    //     range: {
+    //         'min': 1,
+    //         'max': 300
+    //     }
+    // });
+
+})

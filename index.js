@@ -9,7 +9,6 @@ var jsonServer = require("json-server");
 var url = require("url");
 var request = require("request");
 var database = jsonServer.create();
-// var jade=require("jade");
 app.set("views", "./views");
 app.set('view engine', "jade");
 app.use(bodyparser.json());
@@ -20,15 +19,11 @@ app.use(sessions({
     secret: "ghdfhj4u5k45u4li4hg5nm:klopl54g4f",
     resave: true
 }));
-//
-// function sessionCleanup() {
-//     sessionStore.all(function(err, sessions) {
-//         for (var i = 0; i < sessions.length; i++) {
-//             sessionStore.get(sessions[i], function() {} );
-//         }
-//     });
-// }
-// setInterval(sessionCleanup(),60000);
+
+
+
+
+// photo de profil
 app.get("/avatar", function(req, res) {
     if (req.session.uniqueID) {
         res.sendFile(req.session.clientID + ".jpg", {
@@ -38,6 +33,15 @@ app.get("/avatar", function(req, res) {
         res.send("Error");
     }
 })
+app.get("/avatar/:id", function(req, res) {
+        res.sendFile(req.params.id + ".jpg", {
+            root: path.join(__dirname, "/avatar")
+        });
+        console.log("avatar requested");
+});
+
+
+// Modification des Demandes
 app.patch("/service/myDemands/:id", function(req, response) {
     if (!req.session.uniqueID) {
         response.setHeader("Content-Type", "application/json");
@@ -74,13 +78,16 @@ app.patch("/service/myDemands/:id", function(req, response) {
     request.write(data);
     request.end();
 });
+
+
+// Sauvegarde des données
 app.post("/service/:val", function(req, response) {
     if (!req.session.uniqueID) {
         response.setHeader("Content-Type", "application/json");
         response.json(false);
         return;
     }
-    if(req.params.val=="myDemands"){
+    if (req.params.val == "myDemands") {
         var data = {};
         data.chickenKind = req.body.chickenKind;
         data.size = req.body.size;
@@ -113,14 +120,14 @@ app.post("/service/:val", function(req, response) {
         reque.write(data);
         reque.end();
     }
-    if(req.params.val=="commands"){
+    if (req.params.val == "commands") {
         request({
             url: 'http://localhost:8997/commands',
             method: 'POST',
             form: {
                 userId: req.session.clientID,
                 quantity: req.body.quantity,
-                offerId:req.body.offerId
+                offerId: req.body.offerId
             }
         }, function(error, resp, body) {
             if (error) {
@@ -134,6 +141,9 @@ app.post("/service/:val", function(req, response) {
     }
 
 });
+
+
+//Suppression des Données
 app.delete("/service/myDemands/:id", function(req, res) {
     if (!req.session.uniqueID) {
         res.setHeader("Content-Type", "application/json");
@@ -149,6 +159,10 @@ app.delete("/service/myDemands/:id", function(req, res) {
     });
 
 });
+
+
+
+//Envoie des Données
 app.get("/service/:val", function(req, res) {
     if (!req.session.uniqueID) {
         res.setHeader("Content-Type", "application/json");
@@ -171,6 +185,9 @@ app.get("/service/:val", function(req, res) {
         });
     }
 });
+
+
+// Enregistrer un Commentaire
 app.post("/comments", function(req, res) {
     if (!req.session.uniqueID) {
         res.setHeader("Content-Type", "application/json");
@@ -193,19 +210,24 @@ app.post("/comments", function(req, res) {
             res.json(body);
         }
     });
-})
+});
+
+// Contenu Utilisateur Connecté
 app.get("/content/demand", function(req, res) {
     res.sendFile("demandLayout.html", {
         root: path.join(__dirname, "/views")
     })
 })
-app.get("/content/offer",function(req,res){
+app.get("/content/offer", function(req, res) {
 
 });
-app.get("/content/command",function(req,res){
+app.get("/content/command", function(req, res) {
 
 });
 
+
+
+// Verification des informations de connexion
 app.post("/checklog", function(req, resp) {
     var url = "http://localhost:8997/users?email=" + req.body.email;
     http.get(url, function(res) {
@@ -224,6 +246,9 @@ app.post("/checklog", function(req, resp) {
         });
     });
 });
+
+
+// Enregistrement d'un Utilisateur
 app.post("/signin", function(req, res) {
     var data = {};
     data.name = req.body.name;
@@ -263,12 +288,46 @@ app.post("/signin", function(req, res) {
     res.redirect("/login");
 });
 
+
+
+
 app.get("/infoOffers", function(req, res) {
     var obj = {
         Limit: 15,
         records: 100
     };
 })
+
+app.get("/allOffers", function(req, res) {
+    var admins;
+    var url = "http://localhost:8997/users?admin=true";
+    request.get(url, function(error, response, body) {
+        if (error) {
+            return console.log(error);
+        }
+        admins = JSON.parse(body);
+        var url1 = "http://localhost:8997/offers";
+        request.get(url1, function(error, response, body) {
+            var result = JSON.parse(body);
+            for (var i = 0; i < result.length; i++) {
+                for (var k = 0; k < admins.length; k++) {
+                    if(admins[k].id==result[i].userId){
+                        result[i].name=admins[k].name;
+                        result[i].avatarLink="/avatar/"+admins[k].id;
+                        break;
+                    }
+                }
+            }
+            res.json(result);
+
+        })
+    })
+})
+
+
+
+
+// Info sur une offre particuliere
 app.get("/offerdata/:id", function(req, res) {
     var OfferData = {};
     var url1 = "http://localhost:8997/offers/" + req.params.id;
@@ -310,6 +369,8 @@ app.get("/offerdata/:id", function(req, res) {
     });
 
 })
+
+// Vue d'une Offre
 app.get("/offer/:id", function(req, res) {
     res.render("singleOfferLayout", {
         id: req.params.id,
@@ -329,7 +390,7 @@ app.get("/connection", function(req, res) {
     if (req.session.uniqueID) {
         res.render("panelLayout", {
             "newOffers": "4",
-            panel:true
+            panel: true
         });
     } else {
         res.redirect("/");

@@ -1,40 +1,60 @@
-<div class="container" id="main">
-    <div class="row">
-        <div class="col m6 s12">
-            <nav>
-                <div class="nav-wrapper">
-                    <form>
-                        <div class="input-field">
-                            <input id="search" type="search" required>
-                            <label for="search"><i class="fa fa-search"></i></label>
-                            <i class="fa fa-close"></i>
-                        </div>
-                    </form>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <div class="fixed-action-btn horizontal secondtool">
-        <div class="switch">
-            <label>
-        Ordre Asc
-        <input type="checkbox">
-        <span class="lever"></span>
-      </label>
-        </div>
-    </div>
-    <div class="fixed-action-btn horizontal">
-        <a class="btn-floating btn-large red">
-            <i class="fa fa-sort"></i>
-        </a>
-        <ul>
-            <li><a class="btn-floating red tooltipped" data-position="top" data-delay="50" data-tooltip="Trier Par Date"><i class="fa fa-calendar"></i></a></li>
-            <li><a class="btn-floating yellow darken-1 tooltipped" data-position="top" data-delay="50" data-tooltip="Trier Par Prix Unitaire"><i class="fa fa-money"></i></a></li>
-            <li><a class="btn-floating green tooltipped" data-position="top" data-delay="50" data-tooltip="Trier Par Quantité"><i class="fa fa-sort-numeric-asc"></i></a></li>
-        </ul>
-    </div>
-    <ul class="collapsible popup" id="list" data-collapsible="accordion">
+<div class="container">
+    <a href="#search" class="waves-effect waves-light btn red darken-1">
+        <i class="fa fa-search"></i> Rechercher
+    </a>
+    <div id="offers">
 
-    </ul>
-    
+    </div>
+    <div id="search">
+        <span class="close"><i class="fa fa-close"></i></span>
+        <div class="content">
+            <form role="search" id="searchform" action="/search" method="get">
+                <h4 class="center">Prix unitaire</h4>
+            <input id="sliderp" type="text" name="range"></input>
+            <h4 class="center">quantité</h4>
+                <input id="sliderq"></input>
+                <div class="row">
+                    <div class="input-field col m6 s12">
+                        <h5 class="center">Type de poulet</h5>
+                        <ul>
+                            <li>
+                                <input type="checkbox" class="filled-in" id="pouletc" checked="checked" />
+                                <label for="pouletc">Poulet de chair</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" class="filled-in" id="pouletv" checked="checked" />
+                                <label for="pouletv">Poulet du village</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" class="filled-in" id="pondeuse" checked="checked" />
+                                <label for="pondeuse">Pondeuse</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="input-field col m6 s12">
+                        <h5 class="center">Taille du Poulet</h5>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="petit" class="filled-in" checked="checked" />
+                                <label for="petit">Petit</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="moyen" class="filled-in" checked="checked" />
+                                <label for="moyen">Moyen</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="gros" class="filled-in" checked="checked" />
+                                <label for="gros">Gros</label>
+                            </li>
+                            <li>
+                            <input type="checkbox" id="tgros" class="filled-in" checked="checked" />
+                            <label for="tgros"> Très Gros</label>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
 </div>

@@ -1,3 +1,4 @@
+<!-- template d'une demande -->
 <script id="demand" type="text/template">
     <td>
         <%= publicationDate %>
@@ -18,17 +19,43 @@
         </div>
     </td>
 </script>
+
+<!-- Template d'une Offre -->
 <script id="offer" type="text/template">
-    <div class="card">
-        <div class="card-image">
-            <img src="<%= imageLink %>">
-            <span class="card-title">Offre N° <%= id %></span>
+        <div class="my-card z-depth-4">
+            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <a href="#" class="btn-floating btn-large btn-price waves-effect waves-light  pink accent-2">
+                        <%= unitPrice %>F</a>
+                    <img src="<%= imageLink %>" alt="Offer Image">
+                </div>
+                <ul class="card-action-buttons">
+                    <li><a href="/offer/<%= id %>" class="btn-floating waves-effect waves-light green accent-4"><i class="fa fa-send"></i></a>
+                    </li>
+                    <li><a class="btn-floating waves-effect waves-light light-blue"><i class="fa fa-info activator"></i></a>
+                    </li>
+                </ul>
+                <div class="card-content">
+                    <p class="row">
+                        <span class="right"><%= publicationDate %></span>
+                    </p>
+                    <h4 class="card-title grey-text text-darken-4">Echantillon de <%= quantity %> <%= chickenKind %>
+                                        </h4>
+                    <div class="row">
+                        <div class="col s2">
+                            <img src="<%= avatarLink %>" alt="" class="circle responsive-img valign profile-image">
+                        </div>
+                        <div class="col s9"> Publié par
+                            <a href="#">
+                                <%= name %>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><i class="fa fa-close right"></i> Offre n°<%= id %>"</span>
+                    <p class="flow-text"><%= description %></p>
+                </div>
+            </div>
         </div>
-        <div class="card-content">
-            <p><%= description %></p>
-        </div>
-        <div class="card-action">
-            <a href="/offer/<%= id %>">Aller vers l'offre</a>
-        </div>
-    </div>
 </script>
