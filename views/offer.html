@@ -18,11 +18,11 @@
                         <td id="size"></td>
                     </tr>
                     <tr>
-                        <th >Quantité :</th>
+                        <th>Quantité :</th>
                         <td id="quant"></td>
                     </tr>
                     <tr>
-                        <th >Prix Unitaire :</th>
+                        <th>Prix Unitaire :</th>
                         <td id="unitPrice"></td>
                     </tr>
                 </table>
@@ -65,6 +65,9 @@
 
         </div>
     </div>
+    <div id="prestations">
+
+    </div>
     <div class="mysection">
         <div class="red white-text">
             <h4>Description</h4>
@@ -85,6 +88,61 @@
             </p>
         </div>
     </div>
+
+    <div class="mysection">
+        <div class="red white-text ">
+            <h4>Poser une Question</h4>
+        </div>
+        <div class="row">
+            <form class="col s12" id="ask">
+                <div class="container">
+                    <div class="row">
+                        <div class="col m8 s8">
+                            <div class="input-field">
+                                <i class="fa fa-question prefix"></i>
+                                <textarea id="question" class="materialize-textarea"></textarea>
+                                <label for="question">Votre question</label>
+                            </div>
+                            <div class="row center">
+                                <button class="waves-effect waves-light btn" type="submit">
+                                Envoyer<i class="fa fa-send right"></i>
+                            </button>
+                            </div>
+                        </div>
+                        <div class="col m4 s4 center">
+                            <div>
+                                <img src="" alt="" class="circle small responsive-img">
+                            </div>
+                            <span class="small">Uploader : </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <h3>
+                Commentaires
+            </h3>
+        </div>
+        <div class="section-content">
+            <div class="row comment">
+                <div class="col l3 m3 center">
+                    <div>
+                        <img src="" alt="" class="circle responsive-img">
+                    </div>
+                    <span></span>
+                </div>
+                <div class="col l9 m9">
+
+                </div>
+            </div>
+            <ul id="comments-list" class="comments-list">
+
+            </ul>
+        </div>
+    </div>
     <div class="mysection">
         <div class="red white-text ">
             <h4>Poser un commentaire</h4>
@@ -92,23 +150,68 @@
         <div class="row">
             <form class="col s12" id="send">
                 <div class="container">
-                <div class="row">
-                    <div class="input-field s12">
-                        <i class="fa fa-comment prefix"></i>
-                        <textarea id="comment" class="materialize-textarea"></textarea>
-                        <label for="icon_prefix2">Votre Commentaire</label>
+                    <div class="row">
+                        <div class="input-field s12">
+                            <i class="fa fa-comment prefix"></i>
+                            <textarea id="comment" class="materialize-textarea"></textarea>
+                            <label for="comment">Votre Commentaire</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row center">
-                    <button class="waves-effect waves-light btn" type="submit">
-                                Envoyer<i class="fa fa-send right"></i>
-                    </button>
-                </div>
+                    <div class="row center">
+                        <button class="waves-effect waves-light btn" type="submit">
+                            Envoyer<i class="fa fa-send right"></i>
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-    <div>
+</div>
 
+<div class="col m6 s12" id="prestationTemplate"  style="display:none">
+    <div class="card prestation z-depth-4">
+        <div class="card-header teal lighten-2">
+            <div class="card-title">
+                <h4 class="title">Poulet Roti</h4>
+                <p class="publicationDate">Jeudi 12 janvier 2017</p>
+            </div>
+        </div>
+        <div class="card-content-bg white-text">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s6 m6 l6 center-align">
+                        <div>
+                            <p><span class="grey-text text-lighten-4">Durée</span></p>
+                            <p><span class="grey-text text-lighten-4">Prix Unitaire</span></p>
+                        </div>
+                    </div>
+                    <div class="col s6 m6 l6 center-align infos">
+                        <div>
+                            <p><span class="grey-text text-lighten-4"> 1 Jour</span></p>
+                            <p><span class="grey-text text-lighten-4"> 400F</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+<li style="display:none" id="template">
+    <div class="comment-main-level row">
+        <!-- Avatar -->
+        <div class="comment-avatar col m2 s2 center"><img class="circle" alt=""></div>
+        <!-- Contenedor del Comentario -->
+        <div class="comment-box col m10 s10">
+            <div class="comment-head">
+                <h6 class="comment-name"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
+                <span>hace 20 minutos</span>
+
+            </div>
+            <div class="comment-content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+            </div>
+        </div>
+    </div>
+</li>

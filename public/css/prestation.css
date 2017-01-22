@@ -1,0 +1,39 @@
+.card-title {
+    padding: 20px;
+}
+.card-content-bg {
+    background: url("/images/poulet_roti.jpg")
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.card .card-content {
+    background: rgba(0, 0, 0, 0.5);
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    padding-top: 300px;
+    position: relative;
+    bottom: 0;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.prestation .title {
+    margin: 0;
+    font-weight: 300;
+    color: #fff
+}
+
+.prestation .publicationDate {
+    font-size: 1.0rem;
+    margin: 0;
+    color: #fff
+}
+.card-content>.row>div:first-child{
+    border-bottom: 1px dashed #00bfa5
+}
+.prestation .infos{
+    border-left: 1px dashed #00bfa5;
+    border-bottom: 1px dashed #00bfa5
+}

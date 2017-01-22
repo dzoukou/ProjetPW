@@ -1,0 +1,40 @@
+<div class="container">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-hand-o-right prefix"></i>
+                <input name="name" type="text" class="validate">
+                <label for="name">Nom de l'offre</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-money prefix"></i>
+                <input name="unitPrice" type="number" min=1 class="validate">
+                <label for="unitPrice">Prix unitaire</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-clock-o prefix"></i>
+                <input name="time" type="text" class="validate">
+                <label for="time">Durée</label>
+            </div>
+        </div>
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Image</span>
+                <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+        
+        <div class="center">
+            <button class="waves-effect waves-light btn right" type="submit">
+                Commander
+            </button>
+        </div>
+    </form>
+</div>

@@ -15,13 +15,36 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
     extended: true
 }));
+app.use(express.bodyparser({keepExtension:true,uploadDir:__dirname+"/public/uploads"})
 app.use(sessions({
     secret: "ghdfhj4u5k45u4li4hg5nm:klopl54g4f",
     resave: true
 }));
+var databasePort=8997;
+var baseUrl="http://localhost:"+databasePort+"/";
 
+app.get("/createprestation",function(req,res){
+  res.render("createprestation");
+})
 
+var multer=require("multer")
+var upload=multer({dest:"/uploads"})
+app.post("/createprestation",function(req,res){
 
+})
+
+//récupération des prestations d'une offre
+app.get("/prestoffer/:id",function(req,res){
+  var url=baseUrl+"bindprestoffer?offerId="+req.params.id;
+  request.get(url, function(error, response, body) {
+    if (error) {
+        return console.log('Error:', error);
+    }
+    var prestation = JSON.parse(body);
+    OfferData.prestations = prestations;
+    console.log(OfferData);
+    res.json(OfferData);
+})});
 // creer une offre
 app.get("/createoffer",function(req,res){
     res.render("CreateOffer");
@@ -56,7 +79,6 @@ app.patch("/service/myDemands/:id", function(req, response) {
     data.size = req.body.size;
     data.quantity = req.body.quantity;
     data = querystring.stringify(data);
-    console.log(data);
     var options = {
         host: 'localhost',
         port: 8997,
@@ -74,7 +96,6 @@ app.patch("/service/myDemands/:id", function(req, response) {
             body += chunk;
         });
         res.on("end", function() {
-            console.log(JSON.parse(body));
             response.send(JSON.parse(body));
         });
     });
@@ -98,7 +119,6 @@ app.post("/service/:val", function(req, response) {
         data.userId = req.session.clientID;
         data.publicationDate = new Date().toLocaleString();
         data = querystring.stringify(data);
-        console.log(data);
         var options = {
             host: 'localhost',
             port: 8997,
@@ -116,7 +136,6 @@ app.post("/service/:val", function(req, response) {
                 body += chunk;
             });
             res.on("end", function() {
-                console.log(JSON.parse(body));
                 response.send(JSON.parse(body));
             });
         });
@@ -137,7 +156,6 @@ app.post("/service/:val", function(req, response) {
                 console.log(error);
                 response.json(false);
             } else {
-                console.log(response.statusCode, body);
                 response.json(body);
             }
         });
@@ -198,18 +216,45 @@ app.post("/comments", function(req, res) {
         return;
     }
     request({
-        url: 'http://localhost/comments',
+        url: baseUrl+"comments",
         method: 'POST',
         form: {
             userId: req.session.clientID,
-            comment: req.body.comment
+            comment: req.body.comment,
+            offerId: req.body.offerId,
+            date: new Date().toLocaleDateString()
         }
     }, function(error, response, body) {
         if (error) {
             console.log(error);
             res.json(false);
         } else {
-            console.log(response.statusCode, body);
+            res.json(body);
+        }
+    });
+});
+
+// Enregistrer une Question
+app.post("/questions", function(req, res) {
+    if (!req.session.uniqueID) {
+        res.setHeader("Content-Type", "application/json");
+        res.json(false);
+        return;
+    }
+    request({
+        url: baseUrl+"questions",
+        method: 'POST',
+        form: {
+            userId: req.session.clientID,
+            question: req.body.question,
+            offerId: req.body.offerId,
+            date: new Date().toLocaleDateString()
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log(error);
+            res.json(false);
+        } else {
             res.json(body);
         }
     });
@@ -265,7 +310,6 @@ app.post("/signin", function(req, res) {
     data.sector = req.body.sector;
     data.register_date = new Date().toLocaleString();
     data = querystring.stringify(data);
-    console.log(data);
     var options = {
         host: 'localhost',
         port: 8997,
@@ -336,12 +380,12 @@ app.get("/offerdata/:id", function(req, res) {
     var url1 = "http://localhost:8997/offers/" + req.params.id;
     var url2 = "http://localhost:8997/reductions?offerId=" + req.params.id;
     var url3 = "http://localhost:8997/prestations?offerId=" + req.params.id;
-
+    var url5= baseUrl+"comments?offerId="+req.params.id;
     request.get(url1, function(error, response, body) {
         if (error) {
             return console.log('Error:', error);
         }
-        console.log(url1 + "\n" + body);
+
         var offer = JSON.parse(body);
         OfferData.offer = offer;
         var url4 = "http://localhost:8997/users/" + OfferData.offer.userId;
@@ -352,6 +396,7 @@ app.get("/offerdata/:id", function(req, res) {
             var user = JSON.parse(body);
             OfferData.user = {};
             OfferData.user.name = user.name;
+            OfferData.user.avatar= "/avatar/"+user.id;
             request.get(url2, function(error, response, body) {
                 if (error) {
                     return console.log('Error:', error);
@@ -364,8 +409,46 @@ app.get("/offerdata/:id", function(req, res) {
                     }
                     var prestations = JSON.parse(body);
                     OfferData.prestations = prestations;
-                    console.log(OfferData);
-                    res.json(OfferData);
+                    request.get(url5,function(error, response, body){
+                      if (error) {
+                          return console.log('Error:', error);
+                      }
+                      var comments=JSON.parse(body);
+                      OfferData.comments=[];
+                      if(comments.length==0){
+                        res.json(OfferData);
+                        return;
+                      }
+                      console.log(comments);
+                      var data="id="+comments[0].userId;
+                      for(var i=1;i<comments.length;i++){
+                        data+=("&id="+comments[i].userId);
+                      }
+                      var requsers=baseUrl+"users?"+data;
+                      console.log(requsers);
+                      request(requsers,function(error,response,body){
+                        if (error) {
+                            return console.log('Error:', error);
+                        }
+                        var users=JSON.parse(body);
+                        for(var i=0;i<users.length;i++){
+                          var obj={};
+                          obj.name=users[i].name;
+                          obj.surname=users[i].surname;
+                          obj.userId=users[i].id;
+                          for(var j=0;j<comments.length;j++){
+                            if(comments[j].userId==obj.userId){
+                              obj.comment=comments[j].comment;
+                              obj.date=comments[j].date;
+                              OfferData.comments.push(obj)
+                            }
+                          }
+                        }
+                        console.log(OfferData.comments);
+                        res.json(OfferData);
+                      })
+                    })
+
                 });
             });
         });
@@ -373,6 +456,9 @@ app.get("/offerdata/:id", function(req, res) {
 
 })
 
+app.get("/prestations",function(req,res){
+  res.render("prestations");
+})
 // Vue d'une Offre
 app.get("/offer/:id", function(req, res) {
     res.render("singleOfferLayout", {

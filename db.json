@@ -14,6 +14,7 @@
     },
     {
       "name": "TrivialMan",
+      "surname": "none",
       "id": 1,
       "email": "a",
       "password": "",
@@ -143,13 +144,30 @@
       "offerId": 0
     }
   ],
+  "bindprestoffer": [
+    {
+      "id": 0,
+      "offerId": 20,
+      "prestationId": 15
+    }
+  ],
   "prestations": [
     {
       "id": 0,
-      "name": "prest1",
-      "price": 10000,
-      "publicationDate": "30-12-2017",
+      "name": "Poulet déplumé",
+      "Unitprice": 600,
+      "imageLink": "/images/poulet_déplumé.jpg",
+      "creationDate": "30-12-2017",
       "time": "1 day",
+      "offerId": 0
+    },
+    {
+      "id": 1,
+      "name": "Poulet roti",
+      "Unitprice": 600,
+      "imageLink": "/images/poulet_roti.jpg",
+      "creationDate": "12-01-2017",
+      "time": "3 day",
       "offerId": 0
     }
   ],
@@ -183,7 +201,41 @@
     {
       "id": 0,
       "userId": 1,
-      "comment": "Ca ne me plait pas"
+      "comment": "Ca ne me plait pas",
+      "offerId": 0
+    },
+    {
+      "userId": "1",
+      "comment": "voici mon premier commentaire ......",
+      "offerId": "1",
+      "date": "2017-01-21",
+      "id": 1
+    },
+    {
+      "userId": "1",
+      "comment": "voici mon troisieme commentaire ......................",
+      "offerId": "1",
+      "date": "2017-01-21",
+      "id": 2
+    }
+  ],
+  "questions": [
+    {
+      "id": 0,
+      "userId": 1,
+      "question": "Ca ne me plait pas",
+      "offerId": 0
+    },
+    {
+      "userId": "1",
+      "offerId": "1",
+      "id": 1
+    },
+    {
+      "userId": "1",
+      "question": "ma question est la suivante : ?",
+      "offerId": "0",
+      "id": 2
     }
   ]
 }
