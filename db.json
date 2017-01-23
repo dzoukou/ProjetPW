@@ -32,6 +32,19 @@
       "sector": "",
       "register_date": "2017-01-07 09:45:46",
       "id": 2
+    },
+    {
+      "name": "",
+      "surname": "",
+      "email": "",
+      "password": "",
+      "phone": "",
+      "address": "",
+      "city": "",
+      "district": "",
+      "sector": "",
+      "register_date": "2017-01-22 18:15:58",
+      "id": 3
     }
   ],
   "accounts": [
@@ -48,9 +61,9 @@
       "chickenKind": "poulet de chair",
       "size": "gros",
       "imageLink": "/images/poulet_de_chair.jpg",
-      "quantity": 120,
+      "quantity": 80,
       "unitPrice": 7500,
-      "publicationDate": "30-12-2017",
+      "PublicationDate": "30-12-2017",
       "description": "I am an offer",
       "userId": 1
     },
@@ -61,7 +74,7 @@
       "imageLink": "/images/pondeuse.jpg",
       "quantity": 30,
       "unitPrice": 3500,
-      "publicationDate": "30-12-2017",
+      "PublicationDate": "30-12-2017",
       "description": "I am an offer",
       "userId": 1
     },
@@ -72,7 +85,7 @@
       "imageLink": "/images/poulet_de_chair.jpg",
       "quantity": 300,
       "unitPrice": 500,
-      "publicationDate": "30-12-2017",
+      "PublicationDate": "30-12-2017",
       "description": "I am an offer",
       "userId": 1
     },
@@ -83,7 +96,7 @@
       "imageLink": "/images/poulet_de_chair.jpg",
       "quantity": 2,
       "unitPrice": 4500,
-      "publicationDate": "30-12-2017",
+      "PublicationDate": "30-12-2017",
       "description": "I am an offer",
       "userId": 1
     },
@@ -94,7 +107,7 @@
       "imageLink": "/images/poulet_de_chair.jpg",
       "quantity": 10,
       "unitPrice": 5500,
-      "publicationDate": "30-12-2017",
+      "PublicationDate": "30-12-2017",
       "description": "I am an offer",
       "userId": 1
     },
@@ -105,7 +118,7 @@
       "imageLink": "/images/poulet_de_chair.jpg",
       "quantity": 40,
       "unitPrice": 6500,
-      "publicationDate": "30-12-2017",
+      "PublicationDate": "30-12-2017",
       "description": "I am an offer",
       "userId": 1
     },
@@ -116,24 +129,251 @@
       "imageLink": "/images/poulet_de_chair.jpg",
       "quantity": 70,
       "unitPrice": 8500,
-      "publicationDate": "30-12-2017",
+      "PublicationDate": "30-12-2017",
       "description": "I am an offer",
       "userId": 1
+    },
+    {
+      "quantity": "600",
+      "unitPrice": "3000",
+      "chickenKind": "Poulet de chair",
+      "size": "Gros",
+      "imageLink": "/uploads/offer1485095129471.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "Nouvelle offre sur les poulets de chair",
+      "userId": "1",
+      "id": 7
+    },
+    {
+      "quantity": "600",
+      "unitPrice": "3000",
+      "chickenKind": "Poulet de chair",
+      "size": "Gros",
+      "imageLink": "/uploads/offer1485095177575.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "Nouvelle offre sur les poulets de chair",
+      "userId": "1",
+      "id": 8
+    },
+    {
+      "quantity": "600",
+      "unitPrice": "1800",
+      "chickenKind": "Poulet de chair",
+      "size": "Petit",
+      "imageLink": "/uploads/offer1485095853944.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "OFFRE",
+      "userId": "1",
+      "id": 9
+    },
+    {
+      "quantity": "600",
+      "unitPrice": "1800",
+      "chickenKind": "Poulet de chair",
+      "size": "Petit",
+      "imageLink": "/uploads/offer1485096574983.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "OFFRE",
+      "userId": "1",
+      "id": 10
+    },
+    {
+      "quantity": "600",
+      "unitPrice": "1800",
+      "chickenKind": "Poulet de chair",
+      "size": "Petit",
+      "imageLink": "/uploads/offer1485096615886.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "OFFRE",
+      "userId": "1",
+      "id": 11
+    },
+    {
+      "quantity": "600",
+      "unitPrice": "1800",
+      "chickenKind": "Poulet de chair",
+      "size": "Petit",
+      "imageLink": "/uploads/offer1485096808695.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "OFFRE",
+      "userId": "1",
+      "id": 12
+    },
+    {
+      "quantity": "500",
+      "unitPrice": "3000",
+      "chickenKind": "Poulet de chair",
+      "size": "Moyen",
+      "imageLink": "/uploads/offer1485098573478.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "OFFRES",
+      "userId": "1",
+      "id": 13
+    },
+    {
+      "quantity": "500",
+      "unitPrice": "3000",
+      "chickenKind": "Poulet de chair",
+      "size": "Moyen",
+      "imageLink": "/uploads/offer1485098693504.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "OFFRES",
+      "userId": "1",
+      "id": 14
+    },
+    {
+      "quantity": "100",
+      "unitPrice": "5000",
+      "chickenKind": "Poulet du Village",
+      "size": "Petit",
+      "imageLink": "/uploads/offer1485099075717.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "Mon offre",
+      "userId": "1",
+      "id": 15
+    },
+    {
+      "quantity": "100",
+      "unitPrice": "5000",
+      "chickenKind": "Poulet du Village",
+      "size": "Petit",
+      "imageLink": "/uploads/offer1485099195730.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "Mon offre",
+      "userId": "1",
+      "id": 16
+    },
+    {
+      "quantity": "100",
+      "unitPrice": "5000",
+      "chickenKind": "Poulet du Village",
+      "size": "Petit",
+      "imageLink": "/uploads/offer1485099226900.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "Mon offre",
+      "userId": "1",
+      "id": 17
+    },
+    {
+      "quantity": "100",
+      "unitPrice": "5000",
+      "chickenKind": "Poulet du Village",
+      "size": "Petit",
+      "imageLink": "/uploads/offer1485099522501.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "Mon offre",
+      "userId": "1",
+      "id": 18
+    },
+    {
+      "quantity": "",
+      "unitPrice": "",
+      "chickenKind": "",
+      "size": "",
+      "imageLink": "/uploads/offer1485100045578.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "",
+      "userId": "1",
+      "id": 19
+    },
+    {
+      "quantity": "",
+      "unitPrice": "",
+      "chickenKind": "",
+      "size": "",
+      "imageLink": "/uploads/offer1485100075929.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "",
+      "userId": "1",
+      "id": 20
+    },
+    {
+      "quantity": "60",
+      "unitPrice": "4000",
+      "chickenKind": "Pondeuse",
+      "size": "Moyen",
+      "imageLink": "/uploads/offer1485103216715.jpeg",
+      "PublicationDate": "2017-01-22",
+      "description": "Des pondeuses élevé à l'ouest du cameroun",
+      "userId": "1",
+      "id": 21
     }
   ],
   "commands": [
     {
-      "id": 0,
-      "quantity": 10,
-      "userId": 1,
-      "offerId": 1,
-      "validate": false
+      "chickenKind": "poulet de chair",
+      "Prestationname": "poulet fumé",
+      "reduction": "15",
+      "unitPrice": "7500",
+      "reductionId": "0",
+      "prestation": "300",
+      "tprice": "166875",
+      "userId": "1",
+      "quantity": "25",
+      "offerId": "0",
+      "validate": "true",
+      "prestationId": "2",
+      "id": 1
     },
     {
+      "chickenKind": "poulet de chair",
+      "Prestationname": "poulet fumé",
+      "reduction": "0",
+      "unitPrice": "7500",
+      "reductionId": "",
+      "prestation": "300",
+      "tprice": "117000",
       "userId": "1",
       "quantity": "15",
       "offerId": "0",
-      "id": 1
+      "validate": "true",
+      "prestationId": "2",
+      "id": 2
+    },
+    {
+      "chickenKind": "poulet de chair",
+      "Prestationname": "poulet fumé",
+      "reduction": "0",
+      "unitPrice": "7500",
+      "reductionId": "",
+      "prestation": "300",
+      "tprice": "78000",
+      "userId": "1",
+      "quantity": "10",
+      "offerId": "0",
+      "validate": "true",
+      "prestationId": "2",
+      "id": 3
+    },
+    {
+      "chickenKind": "poulet de chair",
+      "Prestationname": "Poulet déplumé",
+      "reduction": "0",
+      "unitPrice": "7500",
+      "reductionId": "",
+      "prestation": "600",
+      "tprice": "121500",
+      "userId": "1",
+      "quantity": "15",
+      "offerId": "0",
+      "validate": "true",
+      "prestationId": "0",
+      "id": 4
+    },
+    {
+      "chickenKind": "poulet de chair",
+      "Prestationname": "poulet fumé",
+      "reduction": "0",
+      "unitPrice": "7500",
+      "reductionId": "",
+      "prestation": "300",
+      "tprice": "140400",
+      "userId": "1",
+      "quantity": "18",
+      "offerId": "0",
+      "validate": "false",
+      "prestationId": "2",
+      "id": 5
     }
   ],
   "reductions": [
@@ -142,13 +382,143 @@
       "quantity": 20,
       "rate": 15,
       "offerId": 0
+    },
+    {
+      "quantity": "52",
+      "rate": "20",
+      "offerId": "20",
+      "id": 1
+    },
+    {
+      "quantity": "23",
+      "rate": "52",
+      "offerId": "20",
+      "id": 2
+    },
+    {
+      "quantity": "40",
+      "rate": "15",
+      "offerId": "21",
+      "id": 3
+    },
+    {
+      "quantity": "10",
+      "rate": "5",
+      "offerId": "21",
+      "id": 4
+    },
+    {
+      "quantity": "20",
+      "rate": "10",
+      "offerId": "21",
+      "id": 5
     }
   ],
   "bindprestoffer": [
     {
       "id": 0,
-      "offerId": 20,
-      "prestationId": 15
+      "offerId": 0,
+      "prestationId": 0
+    },
+    {
+      "id": 1,
+      "offerId": 0,
+      "prestationId": 1
+    },
+    {
+      "id": 2,
+      "offerId": 0,
+      "prestationId": 2
+    },
+    {
+      "offerId": "11",
+      "prestationId": "0",
+      "id": 3
+    },
+    {
+      "offerId": "11",
+      "prestationId": "1",
+      "id": 4
+    },
+    {
+      "offerId": "12",
+      "prestationId": "0",
+      "id": 5
+    },
+    {
+      "offerId": "13",
+      "prestationId": "0",
+      "id": 6
+    },
+    {
+      "offerId": "13",
+      "prestationId": "1",
+      "id": 7
+    },
+    {
+      "offerId": "14",
+      "prestationId": "0",
+      "id": 8
+    },
+    {
+      "offerId": "14",
+      "prestationId": "1",
+      "id": 9
+    },
+    {
+      "offerId": "15",
+      "prestationId": "0",
+      "id": 10
+    },
+    {
+      "offerId": "15",
+      "prestationId": "1",
+      "id": 11
+    },
+    {
+      "offerId": "16",
+      "prestationId": "0",
+      "id": 12
+    },
+    {
+      "offerId": "17",
+      "prestationId": "0",
+      "id": 13
+    },
+    {
+      "offerId": "17",
+      "prestationId": "1",
+      "id": 14
+    },
+    {
+      "offerId": "18",
+      "prestationId": "1",
+      "id": 15
+    },
+    {
+      "offerId": "18",
+      "prestationId": "2",
+      "id": 16
+    },
+    {
+      "offerId": "20",
+      "prestationId": "0",
+      "id": 17
+    },
+    {
+      "offerId": "20",
+      "prestationId": "1",
+      "id": 18
+    },
+    {
+      "offerId": "21",
+      "prestationId": "1",
+      "id": 19
+    },
+    {
+      "offerId": "21",
+      "prestationId": "3",
+      "id": 20
     }
   ],
   "prestations": [
@@ -158,8 +528,7 @@
       "Unitprice": 600,
       "imageLink": "/images/poulet_déplumé.jpg",
       "creationDate": "30-12-2017",
-      "time": "1 day",
-      "offerId": 0
+      "time": "1 day"
     },
     {
       "id": 1,
@@ -167,8 +536,23 @@
       "Unitprice": 600,
       "imageLink": "/images/poulet_roti.jpg",
       "creationDate": "12-01-2017",
-      "time": "3 day",
-      "offerId": 0
+      "time": "3 day"
+    },
+    {
+      "name": "poulet fumé",
+      "Unitprice": "300",
+      "time": "1 heure",
+      "imageLink": "/uploads/prestation1485067595067.jpeg",
+      "creation_date": "2017-01-22",
+      "id": 2
+    },
+    {
+      "name": "Poulet roti + frites",
+      "Unitprice": "1500",
+      "time": "2 heures",
+      "imageLink": "/uploads/prestation1485103042182.jpeg",
+      "creation_date": "2017-01-22",
+      "id": 3
     }
   ],
   "requests": [
@@ -236,6 +620,13 @@
       "question": "ma question est la suivante : ?",
       "offerId": "0",
       "id": 2
+    }
+  ],
+  "pouletmoney": [
+    {
+      "id": 1,
+      "userId": 1,
+      "solde": 500
     }
   ]
 }

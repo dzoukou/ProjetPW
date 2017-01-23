@@ -28,13 +28,15 @@ var construct=function(data){
   var row;
   var template=$("#prestationTemplate")
   for(var i=0;i<data.prestations.length;i++){
-    if(i%3==0){
+    if(i%2==0){
       row=$("<div class=\"row\"></div>");
       $("#prestations").append(row);
     }
     var prestation=data.prestations[i];
     var prest=template.clone();
     prest.find(".title").text(prestation.name);
+    prest.find("input").attr("id","prest"+data.prestations[i].id).attr("data-id",data.prestations[i].id);
+    prest.find("label").attr("for","prest"+data.prestations[i].id);
     prest.find(".publicationDate").text(prestation.creationDate);
     prest.find(".infos p:first-child").text(prestation.time);
     prest.find(".infos p:last-child").text(prestation.UnitPrice);
@@ -47,7 +49,15 @@ var construct=function(data){
     prest=prest.wrap("<div class=\"col m4 s12\"></div>");
     row.append(prest);
   }
-
+  $(".check input").on("click",function(e){
+    if($(e.target).prop("checked")){
+      $(".check input:checked").prop("checked",false);
+      $(e.target).prop("checked",true);
+      $('.message').slideUp("slow");
+    }else{
+      $(".message").text("Vous n'avez selectionné aucune prestation").show();
+    }
+  })
 
 
 
@@ -136,13 +146,13 @@ var construct=function(data){
       Materialize.toast("<span class=\"red-text\">La quantité commandée n'est pas dans la disponible<span>",4000);
       return;
     }
-    console.log("ca peut marcher");
     $.ajax({
       type: "POST",
       url:"/service/commands",
       data:{
         "quantity":quantity,
-        "offerId": data.offer.id
+        "offerId": data.offer.id,
+        "prestationId":$(".message").prop("visible")?null:$(".check input:checked").data("id"),
     },
       dataType: "JSON",
       success:function(data){

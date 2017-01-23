@@ -1,0 +1,21 @@
+.pay,.cancel{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#compte{
+  width: 500px;
+  margin: auto auto;
+  background-color: rgba(50, 155, 0, 0.5);
+}
+#compte h2{
+  font-size: 32px;
+  font-family: "comic sans ms";
+}
+#compte p{
+  font-size: 25px;
+  font-family: "comic sans ms";
+  font-weight: 900
+}
+#solde{
+  color: green;
+}

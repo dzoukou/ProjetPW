@@ -1,0 +1,114 @@
+<form>
+    <h2 class="center">Details sur l'Offre</h2>
+    <div class="myblock z-depth-5">
+        <div class="row center">
+            <div class="input-field col m6 s12">
+                <input id="Quantity" type="number" min="1">
+                <label for="Quantity">Quantité</label>
+            </div>
+            <div class="input-field col m6 s12">
+                <input id="unitPrice" type="number" min="500">
+                <label for="unitPrice">Prix Unitaire</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m6 s12">
+                <select id="kind">
+                  <option value="" disabled selected>Votre Choix</option>
+                  <option value="1">Poulet de chair</option>
+                  <option value="2">Poulet du Village</option>
+                  <option value="3">Pondeuse</option>
+                </select>
+                <label>Type de Poulet</label>
+            </div>
+            <div class="input-field col m6 s12">
+                <select id="size">
+                  <option value="" disabled selected>Votre Choix</option>
+                  <option value="1">Petit</option>
+                  <option value="2">Moyen</option>
+                  <option value="3">Gros</option>
+                  <option value="4">Tres Gros</option>
+                </select>
+                <label>Taille du Poulet</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Image Descriptive</span>
+                    <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <i class="prefix fa fa-edit"></i>
+                <textarea id="description" class="materialize-textarea"></textarea>
+                <label for="description">Description de l'offre</label>
+            </div>
+        </div>
+    </div>
+    <h2 class="center">Réductions</h2>
+
+    <div class="myblock z-depth-5">
+        <div class="container" id="reductions">
+
+        </div>
+    </div>
+    <h2 class="center">Prestations</h2>
+
+    <div class="myblock z-depth-5">
+        <div class="container" id="prestations">
+            <table class="striped centered">
+                <thead>
+                    <th data-field="nom" class="center">Nom</th>
+                    <th data-field="unitPrice" class="center">Prix Unitaire</th>
+                    <th data-field="time" class="center">Durée</th>
+                    <th data-field="" class="center">Action</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="center">
+        <button class="waves-effect waves-light btn" type="submit">
+            Valider <i class="fa fa-send right"></i>
+        </button>
+    </div>
+</form>
+<div class="" style="height:100px"></div>
+<div id="templatereduction" style="display:none">
+    <div class="row">
+        <div class="input-field col s5">
+            <input name=quantity type="number" min="1">
+            <label for="quantity">Quantité</label>
+        </div>
+        <div class="input-field col s5">
+            <input name="pourcentage" type="number" min="1" max="100">
+            <label for="pourcentage">Pourcentage</label>
+        </div>
+        <div class="col s2">
+            <div class="center">
+                <button class="btn-floating btn-large waves-effect waves-light red add">
+                <i class="fa fa-plus fa-3x"></i>
+            </button>
+                <button style="display:none" class="btn-floating btn-large waves-effect waves-light yellow remove">
+                <i class="fa fa-close fa-3x"></i>
+            </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display:none">
+    <div id="check" class="center">
+        <!-- <input type="checkbox" data-id="" /> -->
+        <input type="checkbox" id="test6" />
+        <label class="valign" for="test6"></label>
+    </div>
+</div>

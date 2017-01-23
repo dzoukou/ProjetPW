@@ -1,72 +1,75 @@
 <div class="container main">
     <div id="back">
-        <a class="waves-effect waves-light btn lime darken-1" href="/offers"><i class="fa fa-chevron-left"></i>Retourner aux Offres</a>
+        <a class="waves-effect waves-light btn lime darken-1" href="/offers"><i class="fa fa-chevron-left"></i>  Retourner aux Offres</a>
     </div>
     <div class="row">
         <div class="col m6 s12">
             <div class="row">
                 <img src="" alt="" class="responsive-img imgdesc">
             </div>
-            <div>
-                <table class="bordered centered highlight">
-                    <tr>
-                        <th>Type de Poulets :</th>
-                        <td id="kind"></td>
-                    </tr>
-                    <tr>
-                        <th>Taille :</th>
-                        <td id="size"></td>
-                    </tr>
-                    <tr>
-                        <th>Quantité :</th>
-                        <td id="quant"></td>
-                    </tr>
-                    <tr>
-                        <th>Prix Unitaire :</th>
-                        <td id="unitPrice"></td>
-                    </tr>
-                </table>
-            </div>
+
         </div>
         <div class="col m6 s12">
-            <h4 class="center">Passer une Commande</h4>
-            <div class="divider"></div>
-            <div class="row">
-                <form class="col m12 s12" id="command">
-                    <div class="col m6 s6">
-                        <div class="input-field">
-                            <input id="quantity" type="number" min="1">
-                            <label for="quantity">Quantité</label>
-                        </div>
-                    </div>
-                    <div class="col m6 s6">
-                        <button class="waves-effect waves-light btn right" type="submit">
-                                    Commander
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="mysection">
-                <div class="red white-text">
-                    <h4>Réductions</h4>
-                </div>
-                <div class="container">
-                    <table id="reductions" class="stipped centered highlight">
-                        <thead>
-                            <tr>
-                                <th>Quantité</th>
-                                <th>Pourcentage (%)</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-
+          <div>
+              <table class="bordered centered highlight">
+                  <tr>
+                      <th>Type de Poulets :</th>
+                      <td id="kind"></td>
+                  </tr>
+                  <tr>
+                      <th>Taille :</th>
+                      <td id="size"></td>
+                  </tr>
+                  <tr>
+                      <th>Quantité :</th>
+                      <td id="quant"></td>
+                  </tr>
+                  <tr>
+                      <th>Prix Unitaire :</th>
+                      <td id="unitPrice"></td>
+                  </tr>
+              </table>
+          </div>
+          <div class="mysection">
+              <div class="red white-text">
+                  <h4>Réductions</h4>
+              </div>
+              <div class="container">
+                  <table id="reductions" class="stipped centered highlight">
+                      <thead>
+                          <tr>
+                              <th>Quantité</th>
+                              <th>Pourcentage (%)</th>
+                          </tr>
+                      </thead>
+                      <tbody></tbody>
+                  </table>
+              </div>
+          </div>
         </div>
     </div>
     <div id="prestations">
 
+    </div>
+    <p class="message center">
+        Vous n'avez selectionné aucune prestation
+    </p>
+    <h4 class="center">Passer une Commande</h4>
+    <div class="divider"></div>
+    <div class="row">
+        <form class="col m6 s12 offset-m3" id="command">
+            <div class="col m6 s6">
+                <div class="input-field">
+                    <input id="quantity" type="number" min="1">
+                    <label for="quantity">Quantité</label>
+                </div>
+            </div>
+            <div class="col m6 s6">
+                <button class="waves-effect waves-light btn right" type="submit">
+                            Commander
+                </button>
+            </div>
+        </form>
     </div>
     <div class="mysection">
         <div class="red white-text">
@@ -174,6 +177,10 @@
             <div class="card-title">
                 <h4 class="title">Poulet Roti</h4>
                 <p class="publicationDate">Jeudi 12 janvier 2017</p>
+                <div class="check filled-in z-depth-4">
+                    <input type="checkbox" class="red darken-4" name="" />
+                    <label class="valign" for=""></label>
+                </div>
             </div>
         </div>
         <div class="card-content-bg white-text">

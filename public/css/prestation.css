@@ -1,9 +1,24 @@
+.check {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+}
+
+.check label {
+    margin-top: 15px;
+    margin-left: 16px;
+    margin-right: 14px;
+    padding-left: 20px;
+}
+
 .card-title {
     padding: 20px;
 }
+
 .card-content-bg {
-    background: url("/images/poulet_roti.jpg")
-    background-size: 100% 100%;
+    background: url("/images/poulet_roti.jpg") background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -30,10 +45,12 @@
     margin: 0;
     color: #fff
 }
-.card-content>.row>div:first-child{
+
+.card-content>.row>div:first-child {
     border-bottom: 1px dashed #00bfa5
 }
-.prestation .infos{
+
+.prestation .infos {
     border-left: 1px dashed #00bfa5;
     border-bottom: 1px dashed #00bfa5
 }

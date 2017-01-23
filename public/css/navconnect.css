@@ -22,3 +22,6 @@ nav{
 #main{
   margin-top: 100px;
 }
+a{
+  max-height: 65px;
+}

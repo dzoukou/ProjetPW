@@ -183,9 +183,10 @@ var init_demand=function(){
         ending_top: '10%', // Ending top style attribute
         ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
             $(".navbar-fixed").css({"z-index":0});
+            // sleep(500);
         },
         complete: function() {
-            $(".navbar-fixed").css({"z-index":9999});
+            $(".navbar-fixed").css({"z-index":999});
         } // Callback for Modal close
     });
     $('select').material_select();
@@ -202,6 +203,16 @@ var init_demand=function(){
     });
      $('.tooltipped').tooltip({delay: 50});
 }
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 
 $(function() {
     $("#main").html(div);
@@ -224,9 +235,9 @@ $(function() {
     })
     $("#taboffers").click(function(){
       $("#main").html(div);
-      $("#main").load("/content/offer",function(response,status,xhr){
+      $("#main").load("/content/pouletmoney",function(response,status,xhr){
           if (status == "success") {
-              init_offer();
+              init_compte();
           }
           if (status == "error")
               $("#main").html(divserver);
@@ -249,6 +260,181 @@ $(function() {
      height: "40px",
      "line-height": "40px",
  });
-    $(".navbar-fixed").css({"z-index":9999});
+    $(".navbar-fixed").css({"z-index":999});
 
+});
+var commandGroupview;
+init_command=function(){
+    commandCollection = new app.commandCollection();
+    commandCollection.fetch().then(function() {
+        commandGroupView = new app.allcommandView({
+            "collection": commandCollection
+        });
+    });
+    $("#modal2").modal({
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        in_duration: 600, // Transition in duration
+        out_duration: 200, // Transition out duration
+        starting_top: '4%', // Starting top style attribute
+        ending_top: '10%', // Ending top style attribute
+        ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+            $(".navbar-fixed").css({"z-index":0});
+            // sleep(500);
+        },
+        complete: function() {
+            $(".navbar-fixed").css({"z-index":999});
+        } // Callback for Modal close
+    });
+}
+var init_compte=function(){
+    $.ajax({
+        url:"/solde",
+        type:"GET",
+        success: function(data){
+            $("#solde").text(data.solde+" FCFA");
+            console.log(data);
+        }
+    })
+}
+
+
+
+
+
+
+
+
+//Model
+app.command = Backbone.Model.extend({
+    defaults: {
+    },
+    initialize: function() {
+        this.on("delete", this.remove);
+    }
+});
+//Collection
+app.commandCollection = Backbone.Collection.extend({
+    model: app.command,
+    url: "/commands",
+    initialize: function() {}
+});
+
+
+
+//View
+
+var i = 0;
+
+app.commandView = Backbone.View.extend({
+    tagName: "tr",
+    template: _.template($("#command").html()),
+
+    render: function() {
+        this.$el.html("");
+        console.log(this.model.toJSON());
+        var commandTemplate = this.template(this.model.toJSON());
+        this.$el.html(commandTemplate);
+        $(this.$el).velocity("fadeIn", {
+            duration: 1000 + 700 * (i++),
+            easing: "easeInBack"
+        });
+        return this;
+    },
+
+    initialize: function() {
+        this.model.bind("sync",this.render1,this);
+    },
+    destroyed:false,
+    render1:function(){
+        if(!this.destroyed) this.render();
+    },
+
+    events: {
+        "click .cancel": "commandRemove",
+        "click .pay": "commandpay"
+    },
+
+    commandRemove: function(view) {
+        var elem = this.$el;
+        var model = this.model;
+        var current=this;
+        $("#apply2").unbind("click").click(function(e) {
+            $(elem)
+                .children('td, th')
+                .velocity({
+                    padding: 0
+                })
+                .wrapInner('<div />')
+                .children()
+                .velocity("slideUp", {
+                    duration: 1000,
+                    easing: "easeInElastic",
+                    complete: function() {
+                        elem.remove();
+                    }
+                });
+            current.destroyed=true;
+            model.destroy();
+
+        });
+    },
+
+    commandpay: function() {
+        var elem = this.$el;
+        var model = this.model;
+        $("#modal2 .center.flow-text").text("Voulez vous vraiment payer cette offre ?")
+        $("#apply2").unbind("click").click(function(e) {
+            $.ajax({
+                url:"/validatecommand/"+model.id,
+                type:"POST",
+                dataType:"JSON",
+                success:function(data){
+                    console.log(data);
+                    if(data.quantity==false){
+                        Materialize.toast("<p>La quantité commandé n'est plus disponible</p>",3000)
+                        return;
+                    }
+                    if(data.solde==false){
+                        Materialize.toast("<p>Votre solde est insuffisant</p>",3000);
+                        return;
+                    }
+                    elem.find("td:last-child").text("Livraison dans 10 Jours")
+                    Materialize.toast("<p>Payement éffectué avec success</p>",3000);
+                    console.log("payement");
+                }
+            })
+        });
+    }
+});
+
+
+
+app.allcommandView = Backbone.View.extend({
+    el: "#commands",
+    render: function() {
+        this.$el.html("");
+        this.collection.each(this.addcommand, this);
+        return this;
+    },
+    addcommand: function(command) {
+        var commandView = new app.commandView({
+            "model": command
+        });
+        var elem=commandView.render().el
+        if(command.attributes.validate=="true"){
+            $(elem).find("td:last-child").html("<p>Livraison dans 10 jours</p>");
+        }
+        this.$el.append(elem);
+    },
+    addcommand1: function(command) {
+        var commandView = new app.commandView({
+            "model": command
+        });
+        this.$el.prepend(commandView.el);
+    },
+    initialize: function() {
+        this.collection.on('add', this.addcommand1, this);
+        this.render();
+    }
 });

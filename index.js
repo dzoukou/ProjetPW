@@ -7,46 +7,152 @@ var querystring = require("querystring");
 var app = express();
 var jsonServer = require("json-server");
 var url = require("url");
+var fs = require("fs");
+var formidable = require("formidable");
 var request = require("request");
 var database = jsonServer.create();
+var util = require("util");
 app.set("views", "./views");
 app.set('view engine', "jade");
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
     extended: true
 }));
-app.use(express.bodyparser({keepExtension:true,uploadDir:__dirname+"/public/uploads"})
 app.use(sessions({
     secret: "ghdfhj4u5k45u4li4hg5nm:klopl54g4f",
     resave: true
 }));
-var databasePort=8997;
-var baseUrl="http://localhost:"+databasePort+"/";
+var databasePort = 8997;
+var baseUrl = "http://localhost:" + databasePort + "/";
 
-app.get("/createprestation",function(req,res){
-  res.render("createprestation");
+app.get("/createprestation", function(req, res) {
+    res.render("createprestation");
 })
 
-var multer=require("multer")
-var upload=multer({dest:"/uploads"})
-app.post("/createprestation",function(req,res){
+app.get("/createoffer", function(req, res) {
+    res.render("CreateOffer");
+});
+app.post("/createoffer", function(req, res) {
+    var form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, "/public/uploads");
+    form.parse(req, function(err, fields, files) {
+        var file = files.photo;
+        var name = "offer" + Date.now() + "." + file.type.split("/")[1];
+        fs.rename(file.path, path.join(form.uploadDir, name));
+        var obj = {};
+        obj.quantity = fields.quantity;
+        obj.unitPrice = fields.unitPrice;
+        obj.chickenKind = fields.chickenKind;
+        obj.size = fields.size;
+        obj.imageLink = "/uploads/" + name;
+        obj.PublicationDate = new Date().toLocaleDateString();
+        obj.description = fields.description;
+        if (req.session.uniqueID) {
+            obj.userId = req.session.userId
+        } else {
+            obj.userId = 1;
+        }
+        request({
+            url: baseUrl + "offers",
+            method: 'POST',
+            form: obj
+        }, function(error, resp, body) {
+            if (error) {
+                console.log(error);
+                res.json(false);
+            } else {
+                var reductions = JSON.parse(fields.reductions);
+                var offerId = JSON.parse(body).id
+                for (var i = 0; i < reductions.length; i++) {
+                    reductions[i].offerId = offerId;
+                    request({
+                        url: baseUrl + "reductions",
+                        method: "POST",
+                        form: reductions[i],
+                        "Content-Type": "application/json"
+                    }, function(error, resp, body) {
+                        if (error) {
+                            console.log("Erreur", error);
+                            return;
+                        }
+                    })
+                }
+                var prestations = fields.prestations.split(",");
+                for (var i = 0; i < prestations.length; i++) {
+                    var obj = {
+                        "offerId": offerId,
+                        "prestationId": prestations[i]
+                    };
+                    request({
+                        url: baseUrl + "bindprestoffer",
+                        method: 'POST',
+                        form: obj
+                    }, function(error, response, body) {
+                        if (error) {
+                            console.log("Erreur", error);
+                            return;
+                        }
+                    })
+                }
+                res.json(offerId);
+            }
 
+        });
+    });
+})
+app.get("/allprestation", function(req, res) {
+
+    request.get(baseUrl + "prestations", function(error, response, body) {
+        if (error) {
+            console.log("Erreur", error);
+            return;
+        }
+        res.json(JSON.parse(body));
+    })
+})
+
+app.post("/createprestation", function(req, res) {
+    var form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, "/public/uploads");
+    form.parse(req, function(err, fields, files) {
+        var file = files.photo;
+        var name = "prestation" + Date.now() + "." + file.type.split("/")[1];
+        fs.rename(file.path, path.join(form.uploadDir, name));
+        var obj = {};
+        obj.name = fields.name;
+        obj.Unitprice = fields.Unitprice;
+        obj.time = fields.time;
+        obj.imageLink = "/uploads/" + name;
+        obj.creation_date = new Date().toLocaleDateString();
+        request({
+            url: baseUrl + "prestations",
+            method: 'POST',
+            form: obj,
+        }, function(error, resp, body) {
+            if (error) {
+                console.log(error);
+                res.json(false);
+            } else {
+                res.json(body);
+            }
+        });
+    });
 })
 
 //récupération des prestations d'une offre
-app.get("/prestoffer/:id",function(req,res){
-  var url=baseUrl+"bindprestoffer?offerId="+req.params.id;
-  request.get(url, function(error, response, body) {
-    if (error) {
-        return console.log('Error:', error);
-    }
-    var prestation = JSON.parse(body);
-    OfferData.prestations = prestations;
-    console.log(OfferData);
-    res.json(OfferData);
-})});
+app.get("/prestoffer/:id", function(req, res) {
+    var url = baseUrl + "bindprestoffer?offerId=" + req.params.id;
+    request.get(url, function(error, response, body) {
+        if (error) {
+            return console.log('Error:', error);
+        }
+        var prestation = JSON.parse(body);
+        OfferData.prestations = prestations;
+        res.json(OfferData);
+    })
+});
 // creer une offre
-app.get("/createoffer",function(req,res){
+app.get("/createoffer", function(req, res) {
     res.render("CreateOffer");
 })
 // photo de profil
@@ -60,10 +166,9 @@ app.get("/avatar", function(req, res) {
     }
 })
 app.get("/avatar/:id", function(req, res) {
-        res.sendFile(req.params.id + ".jpg", {
-            root: path.join(__dirname, "/avatar")
-        });
-        console.log("avatar requested");
+    res.sendFile(req.params.id + ".jpg", {
+        root: path.join(__dirname, "/avatar")
+    });
 });
 
 
@@ -143,24 +248,67 @@ app.post("/service/:val", function(req, response) {
         reque.end();
     }
     if (req.params.val == "commands") {
-        request({
-            url: 'http://localhost:8997/commands',
-            method: 'POST',
-            form: {
-                userId: req.session.clientID,
-                quantity: req.body.quantity,
-                offerId: req.body.offerId
-            }
-        }, function(error, resp, body) {
+        request.get(baseUrl + "reductions?offerId=" + req.body.offerId, function(error, respons, body) {
             if (error) {
-                console.log(error);
-                response.json(false);
-            } else {
-                response.json(body);
+                return console.log('Error:', error);
             }
-        });
+            var reductions = JSON.parse(body);
+            request(baseUrl + "offers/" + req.body.offerId, function(error, respons, body) {
+                var obj = JSON.parse(body);
+                var uprice = obj.unitPrice;
+                var kind = obj.chickenKind;
+                var red = 0;
+                redid = null;
+                for (var i = 0; i < reductions.length; i++) {
+                    if (reductions[i].quantity <= req.body.quantity) {
+                        red = reductions[i].rate;
+                        redid = i;
+                    }
+                }
+                var price = (100 - red) * req.body.quantity * uprice / 100;
+                var prestation = 0;
+                var pt = price;
+                var state = false;
+                var prestname = "Aucune"
+                request.get(baseUrl + "prestations/" + req.body.prestationId, function(error, respons, body) {
+                    var resp = JSON.parse(body);
+                    if (resp) {
+                        prestation = resp.Unitprice;
+                        prestname = resp.name;
+                        pt = price + prestation * req.body.quantity;
+                    }
+                    var data = {
+                        chickenKind: kind,
+                        Prestationname: prestname,
+                        reduction: red,
+                        unitPrice: uprice,
+                        reductionId: redid,
+                        "prestation": prestation,
+                        tprice: pt,
+                        userId: req.session.clientID,
+                        quantity: req.body.quantity,
+                        offerId: req.body.offerId,
+                        validate: state
+                    };
+                    if (req.body.prestationId != null) {
+                        data.prestationId = req.body.prestationId
+                    }
+                    request({
+                        url: 'http://localhost:8997/commands',
+                        method: 'POST',
+                        form: data
+                    }, function(error, resp, body) {
+                        if (error) {
+                            console.log(error);
+                            response.json(false);
+                        } else {
+                            response.json(body);
+                        }
+                    });
+                })
+            })
+        })
     }
-
 });
 
 
@@ -179,6 +327,110 @@ app.delete("/service/myDemands/:id", function(req, res) {
         }
     });
 
+});
+
+// Validation d'une commande
+app.post("/validatecommand/:id", function(req, res) {
+    if (!req.session.uniqueID) {
+        res.json(false);
+        return;
+    }
+    request.get(baseUrl + 'pouletmoney/' + req.session.clientID,
+        function(error, response, body) {
+            if (error) {
+                console.log(error);
+            } else {
+                var money = JSON.parse(body).solde;
+                request({
+                    url: baseUrl + 'commands',
+                    qs: {
+                        id: req.params.id,
+                        userId: req.session.clientID
+                    },
+                    method: 'GET'
+                }, function(error, response, body) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        var data = JSON.parse(body)[0];
+                        var topay = data.tprice;
+                        var offerid = data.offerId;
+                        var quantity = data.quantity;
+                        if (topay > money) {
+                            res.json({
+                                solde: false
+                            });
+                            return;
+                        }
+                        request({
+                            headers: {
+                                'content-type': 'application/json',
+                            },
+                            url: baseUrl + 'commands/' + req.params.id,
+                            method: 'PATCH',
+                            body: {
+                                validate: 'true',
+                            },
+                            json:true
+                        }, function(error, response, body) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                console.log(body);
+                                request.get(baseUrl + "offers/" + offerid, function(error, reponse, body) {
+                                    var basequantity = JSON.parse(body).quantity;
+                                    if (basequantity < quantity) {
+                                        res.json({
+                                            quantity: false
+                                        });
+                                        return;
+                                    }
+                                    request({
+                                        headers: {
+                                            'content-type': 'application/json',
+                                        },
+                                        url: baseUrl + 'offers/' + offerid,
+                                        method: 'PATCH',
+                                        body: {
+                                            quantity: (basequantity - quantity),
+                                        },
+                                        json:true
+                                    }, function(error, response, body) {
+                                        if (error) {
+                                            console.log(error);
+                                        } else {
+                                            console.log(body);
+                                            request({
+                                                headers: {
+                                                    'content-type': 'application/json',
+                                                },
+                                                url: baseUrl + 'pouletmoney/'+req.session.clientID,
+                                                method: 'PATCH',
+                                                body: {
+                                                    solde: (money - topay),
+                                                },
+                                                json:true
+                                            }, function(error, response, body) {
+                                                if (error) {
+                                                    console.log(error);
+                                                } else {
+                                                    console.log(body);
+                                                    res.json(true);
+                                                    console.log("commande validée");
+                                                }
+                                            })
+                                        }
+                                    })
+                                })
+
+
+                            }
+                        })
+                    }
+
+                })
+            }
+        })
 });
 
 
@@ -207,7 +459,11 @@ app.get("/service/:val", function(req, res) {
     }
 });
 
-
+app.get("/solde",function(req,res){
+    request.get(baseUrl+"pouletmoney/"+req.session.clientID,function(error,resp,body){
+        res.json({solde:JSON.parse(body).solde});
+    })
+})
 // Enregistrer un Commentaire
 app.post("/comments", function(req, res) {
     if (!req.session.uniqueID) {
@@ -216,7 +472,7 @@ app.post("/comments", function(req, res) {
         return;
     }
     request({
-        url: baseUrl+"comments",
+        url: baseUrl + "comments",
         method: 'POST',
         form: {
             userId: req.session.clientID,
@@ -242,7 +498,7 @@ app.post("/questions", function(req, res) {
         return;
     }
     request({
-        url: baseUrl+"questions",
+        url: baseUrl + "questions",
         method: 'POST',
         form: {
             userId: req.session.clientID,
@@ -259,20 +515,48 @@ app.post("/questions", function(req, res) {
         }
     });
 });
-
+app.get("/content/pouletmoney",function(req,res){
+    res.sendFile("compte.html", {
+        root: path.join(__dirname, "/views")
+    })
+})
 // Contenu Utilisateur Connecté
 app.get("/content/demand", function(req, res) {
     res.sendFile("demandLayout.html", {
         root: path.join(__dirname, "/views")
     })
-})
-app.get("/content/offer", function(req, res) {
-
 });
 app.get("/content/command", function(req, res) {
-
+    res.sendFile("mycommands.html", {
+        root: path.join(__dirname, "/views")
+    })
 });
 
+app.delete("/commands/:id", function(req, res) {
+    if (!req.session.uniqueID) {
+        res.json(false);
+        return;
+    }
+    request.delete(baseUrl + "commands/" + req.params.id, function(error, response, body) {
+        res.json(JSON.parse(body));
+    })
+})
+app.get("/commands", function(req, res) {
+    if (!req.session.uniqueID) {
+        res.json(false);
+        return;
+    }
+    request.get(baseUrl + "commands?userId=" + req.session.clientID, function(error, response, body) {
+        if (error) {
+            console.log("Erreur", error);
+            return;
+        }
+        var commands = JSON.parse(body);
+        res.json(commands);
+        console.log(commands);
+
+    })
+})
 
 
 // Verification des informations de connexion
@@ -326,9 +610,7 @@ app.post("/signin", function(req, res) {
         res.on("data", function(chunk) {
             body += chunk;
         });
-        res.on("end", function() {
-            console.log(JSON.parse(body));
-        });
+        res.on("end", function() {});
     });
     request.write(data);
     request.end();
@@ -358,9 +640,9 @@ app.get("/allOffers", function(req, res) {
             var result = JSON.parse(body);
             for (var i = 0; i < result.length; i++) {
                 for (var k = 0; k < admins.length; k++) {
-                    if(admins[k].id==result[i].userId){
-                        result[i].name=admins[k].name;
-                        result[i].avatarLink="/avatar/"+admins[k].id;
+                    if (admins[k].id == result[i].userId) {
+                        result[i].name = admins[k].name;
+                        result[i].avatarLink = "/avatar/" + admins[k].id;
                         break;
                     }
                 }
@@ -379,8 +661,8 @@ app.get("/offerdata/:id", function(req, res) {
     var OfferData = {};
     var url1 = "http://localhost:8997/offers/" + req.params.id;
     var url2 = "http://localhost:8997/reductions?offerId=" + req.params.id;
-    var url3 = "http://localhost:8997/prestations?offerId=" + req.params.id;
-    var url5= baseUrl+"comments?offerId="+req.params.id;
+    var url3 = "http://localhost:8997/bindprestoffer?offerId=" + req.params.id;
+    var url5 = baseUrl + "comments?offerId=" + req.params.id;
     request.get(url1, function(error, response, body) {
         if (error) {
             return console.log('Error:', error);
@@ -396,7 +678,7 @@ app.get("/offerdata/:id", function(req, res) {
             var user = JSON.parse(body);
             OfferData.user = {};
             OfferData.user.name = user.name;
-            OfferData.user.avatar= "/avatar/"+user.id;
+            OfferData.user.avatar = "/avatar/" + user.id;
             request.get(url2, function(error, response, body) {
                 if (error) {
                     return console.log('Error:', error);
@@ -407,46 +689,52 @@ app.get("/offerdata/:id", function(req, res) {
                     if (error) {
                         return console.log('Error:', error);
                     }
-                    var prestations = JSON.parse(body);
-                    OfferData.prestations = prestations;
-                    request.get(url5,function(error, response, body){
-                      if (error) {
-                          return console.log('Error:', error);
-                      }
-                      var comments=JSON.parse(body);
-                      OfferData.comments=[];
-                      if(comments.length==0){
-                        res.json(OfferData);
-                        return;
-                      }
-                      console.log(comments);
-                      var data="id="+comments[0].userId;
-                      for(var i=1;i<comments.length;i++){
-                        data+=("&id="+comments[i].userId);
-                      }
-                      var requsers=baseUrl+"users?"+data;
-                      console.log(requsers);
-                      request(requsers,function(error,response,body){
+                    var bindprestations = JSON.parse(body);
+                    var data = "";
+                    if (bindprestations.length > 0) {
+                        data += ("id=" + bindprestations[0].prestationId)
+                    }
+                    for (var i = 1; i < bindprestations.length; i++) {
+                        data += ("&id=" + bindprestations[i].prestationId);
+                    }
+                    request.get(baseUrl + "prestations?" + data, function(error, reponse, body) {
+                        OfferData.prestations = JSON.parse(body);
+                    })
+                    request.get(url5, function(error, response, body) {
                         if (error) {
                             return console.log('Error:', error);
                         }
-                        var users=JSON.parse(body);
-                        for(var i=0;i<users.length;i++){
-                          var obj={};
-                          obj.name=users[i].name;
-                          obj.surname=users[i].surname;
-                          obj.userId=users[i].id;
-                          for(var j=0;j<comments.length;j++){
-                            if(comments[j].userId==obj.userId){
-                              obj.comment=comments[j].comment;
-                              obj.date=comments[j].date;
-                              OfferData.comments.push(obj)
-                            }
-                          }
+                        var comments = JSON.parse(body);
+                        OfferData.comments = [];
+                        if (comments.length == 0) {
+                            res.json(OfferData);
+                            return;
                         }
-                        console.log(OfferData.comments);
-                        res.json(OfferData);
-                      })
+                        var data = "id=" + comments[0].userId;
+                        for (var i = 1; i < comments.length; i++) {
+                            data += ("&id=" + comments[i].userId);
+                        }
+                        var requsers = baseUrl + "users?" + data;
+                        request(requsers, function(error, response, body) {
+                            if (error) {
+                                return console.log('Error:', error);
+                            }
+                            var users = JSON.parse(body);
+                            for (var i = 0; i < users.length; i++) {
+                                var obj = {};
+                                obj.name = users[i].name;
+                                obj.surname = users[i].surname;
+                                obj.userId = users[i].id;
+                                for (var j = 0; j < comments.length; j++) {
+                                    if (comments[j].userId == obj.userId) {
+                                        obj.comment = comments[j].comment;
+                                        obj.date = comments[j].date;
+                                        OfferData.comments.push(obj)
+                                    }
+                                }
+                            }
+                            res.json(OfferData);
+                        })
                     })
 
                 });
@@ -456,8 +744,8 @@ app.get("/offerdata/:id", function(req, res) {
 
 })
 
-app.get("/prestations",function(req,res){
-  res.render("prestations");
+app.get("/prestations", function(req, res) {
+    res.render("prestations");
 })
 // Vue d'une Offre
 app.get("/offer/:id", function(req, res) {
@@ -469,13 +757,13 @@ app.get("/offer/:id", function(req, res) {
 app.get("/offers", function(req, res) {
     res.render("OffersLayout", {
         connected: (req.session.uniqueID != null),
-        panel:false
+        panel: false
     });
-})
+});
 app.get("/logout", function(req, res) {
     req.session.destroy();
     res.redirect("/");
-})
+});
 app.get("/connection", function(req, res) {
     if (req.session.uniqueID) {
         res.render("panelLayout", {
@@ -486,19 +774,19 @@ app.get("/connection", function(req, res) {
         res.redirect("/");
     }
 
-})
+});
 app.get("/login", function(req, res) {
     res.render('loginLayout');
-})
+});
 app.get("/register", function(req, res) {
     res.render("registerLayout");
-})
+});
 app.get("/", function(req, res) {
     res.render("Acceuil", {
         connected: (req.session.uniqueID != null),
         panel: false
     });
-})
+});
 app.use("/", express.static(__dirname + "/public"));
 app.use(function(req, res) {
     res.sendFile("404.html", {

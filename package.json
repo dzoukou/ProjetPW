@@ -13,6 +13,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
+    "formidable": "^1.1.1",
     "jade": "^1.11.0",
     "json-server": "^0.9.4",
     "multer": "^1.2.1",

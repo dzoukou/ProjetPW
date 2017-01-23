@@ -37,7 +37,7 @@
                 </ul>
                 <div class="card-content">
                     <p class="row">
-                        <span class="right"><%= publicationDate %></span>
+                        <span class="right"><%= PublicationDate %></span>
                     </p>
                     <h4 class="card-title grey-text text-darken-4">Echantillon de <%= quantity %> <%= chickenKind %>
                                         </h4>
@@ -58,4 +58,39 @@
                 </div>
             </div>
         </div>
+</script>
+
+<!-- Template d'une commande -->
+<script id="command" type="text/template">
+    <td>
+        <%= chickenKind %>
+    </td>
+    <td>
+        <%= quantity %>
+    </td>
+    <td>
+        <%= unitPrice %>F
+    </td>
+    <td>
+        <%= reduction %>
+    </td>
+    <td>
+        <%= Prestationname %>(<%= prestation %>F)
+    </td>
+    <td>
+        <%= tprice %>F
+    </td>
+    <td>
+            <a href="/offer/<%= offerId %>">Lien vers L'offre</a>
+    </td>
+    <td>
+        <div class="row">
+            <div class="col s12 m6">
+                <button data-target="modal2" class="btn waves-effect waves-light green pay">Payer</button>
+            </div>
+            <div class="col s12 m6">
+                <button data-target="modal2" class="btn waves-effect waves-light red cancel">Annuler</button>
+            </div>
+        </div>
+    </td>
 </script>

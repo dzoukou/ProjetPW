@@ -1,0 +1,30 @@
+<!-- Template d'une commande -->
+<script id="command" type="text/template">
+    <td>
+        <%= chickenKind %>
+    </td>
+    <td>
+        <%= quantity %>
+    </td>
+    <td>
+        <%= unitPrice %>
+    </td>
+    <td>
+        <%= reduction %>
+    </td>
+    <td>
+        <%= prestation %>
+    </td>
+    <td>
+        <%= tprice %>
+    </td>
+    <td>
+            <a href="/offer/<%= offerId %>">Lien vers L'offre</a>
+    </td>
+    <td>
+        <div class="center">
+            <a href="#modal2" class="modal-trigger btn-large waves-effect waves-light red">Payer</a>
+            <a href="#modal2" class="modal-trigger btn-large waves-effect waves-light yellow">Annuler</a>
+        </div>
+    </td>
+</script>
